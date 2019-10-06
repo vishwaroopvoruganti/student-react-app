@@ -7,7 +7,8 @@ import {
   BrowserRouter as Router,
   Route,
   Link
-} from 'react-router-dom'
+} from 'react-router-dom';
+import Employee from './Employee/Employee.js';
 
 class App extends Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class App extends Component {
         <Route exact path='/' ></Route>
           <Route exact path='/student' component={FormContainer}></Route>
            <Route exact path='/editStudent/:id' component={Edit}></Route> 
+           <Route exact path='/emp' component={Employee}></Route> 
       </div>
       </Router>
      

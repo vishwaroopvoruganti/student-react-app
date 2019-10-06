@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Input from '../Form/Input.js';
 import Button from '../Form/Button.js';
+import Select from '../Form/Select.js';
 import ResultContainer from './ResultContainer.js';
 import axios from 'axios';
 import {
     Link
-  } from 'react-router-dom'
+  } from 'react-router-dom';
 class FormContainer extends Component {
     constructor(props) {
         super(props);
@@ -19,14 +20,17 @@ class FormContainer extends Component {
             user: {
                 lastName: '',
                 email: '',
-            }
+                state: ''
+            },
+            states: ['Male', 'Female', 'Others']
         };
+        
     }
+    
 
     handleRowClick(id){
         console.log(this.props);
         console.log(id);
-       //let id=10;
        this.props.history.push({pathname:'/editStudent/'+id});
     }
 
@@ -127,6 +131,14 @@ class FormContainer extends Component {
                         placeholder={'Enter Email'}
                         handleChange={this.handleInputChange}
                     />
+
+                    <Select 
+                        title={'State'}
+                        name={'state'}
+                        options={this.state.states}
+                        placeholder={'Select'}
+                        value = {this.state.user.state}
+                        handleChange={this.handleInputChange}/>
 
                     <Button
                         title={'Submit Form'}
