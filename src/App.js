@@ -1,18 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import './App.css';
-import FormContainer from './Container/FormContainer';
+// import FormContainer from './Container/FormContainer';
 import Header from './Header.js'
-import ReactiveForm from './ReactiveForms/ReactiveForm'
+// import ReactiveForm from './ReactiveForms/ReactiveForm';
+import  asyncComponent from './hoc/asyncComponent';
+
 import Edit from './Edit.js';
 import {connect } from 'react-redux';
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Route,
   Link
 } from 'react-router-dom';
 import loader from './assets/loader.gif'
 import Employee from './Employee/Employee.js';
-
+import { LOADING } from './store/actions';
+const asyncReactiveForms = asyncComponent(()=> {
+  return import('./ReactiveForms/ReactiveForm');
+});
+const FormContainer = React.lazy(()=> import('./Container/FormContainer'));
 class App extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +35,8 @@ class App extends Component {
   render() {
     return (
     
-      <Router>
+      <BrowserRouter>
+      <React.Fragment>
         
  <div className="App">
 {/* 
@@ -53,14 +60,22 @@ class App extends Component {
  : null }
 
         <Route exact path='/' ></Route>
-          <Route exact path='/student' component={FormContainer}></Route>
+        {/* Advanced way to implement lazy loading */}
+        {/* see how to pass function from the fallback */}
+          <Route  path='/student' render={()=> (
+                      <Suspense fallback={<div>Loading......</div>}>
+                          <FormContainer />
+                          </Suspense>
+                        )} 
+                        />
            <Route exact path='/editStudent/:id' component={Edit}></Route> 
            <Route exact path='/emp' component={Employee}></Route> 
-           <Route exact path='/form' component={ReactiveForm}></Route> 
+           {/* Old way to implement lazy routing usin hoc */}
+           <Route exact path='/form' component={asyncReactiveForms}></Route> 
            
       </div>
-      
-      </Router>
+      </React.Fragment>
+      </BrowserRouter>
       
 
 
@@ -76,5 +91,14 @@ const mapStateToProps = state => {
   };
 };
 
+const dispatchStateToProps = dispatch => {
+  return {
+    //loadSpinner: (param) => dispatch({type: LOGIN_FORM_VALUES, value: param})
 
-export default connect(mapStateToProps)(App);
+     // updateSearchResults: (param) => dispatch(searchResults(param)),
+    //  loadSpinner: (param) => dispatch({ type: LOADING, value: param })
+  };
+};
+
+
+export default connect(mapStateToProps, dispatchStateToProps)(App);
