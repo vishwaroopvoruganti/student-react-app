@@ -12,13 +12,13 @@ class Edit extends Component {
     componentDidMount() {
         console.log(this.props);
         console.log('Did Mount called');
-        console.log(this.props.match.params.id); 
+        console.log(this.props.match.params.id);
     }
 
-    componentWillMount(){
+    componentWillMount() {
         console.log('Will Mount called');
-      }
-    
+    }
+
     render() {
         console.log('Render called');
 

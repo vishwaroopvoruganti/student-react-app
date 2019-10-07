@@ -3,10 +3,9 @@ import './App.css';
 // import FormContainer from './Container/FormContainer';
 import Header from './Header.js'
 // import ReactiveForm from './ReactiveForms/ReactiveForm';
-import  asyncComponent from './hoc/asyncComponent';
-
+import asyncComponent from './hoc/asyncComponent';
 import Edit from './Edit.js';
-import {connect } from 'react-redux';
+import { connect } from 'react-redux';
 import {
   BrowserRouter,
   Route,
@@ -15,10 +14,10 @@ import {
 import loader from './assets/loader.gif'
 import Employee from './Employee/Employee.js';
 import { LOADING } from './store/actions';
-const asyncReactiveForms = asyncComponent(()=> {
+const asyncReactiveForms = asyncComponent(() => {
   return import('./ReactiveForms/ReactiveForm');
 });
-const FormContainer = React.lazy(()=> import('./Container/FormContainer'));
+const FormContainer = React.lazy(() => import('./Container/FormContainer'));
 class App extends Component {
   constructor(props) {
     super(props);
@@ -28,61 +27,39 @@ class App extends Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     console.log(this.props);
-}
+  }
 
   render() {
     return (
-    
       <BrowserRouter>
-      <React.Fragment>
-        
- <div className="App">
-{/* 
-        {this.props.loading ? <p>LOADING......<p/> : null } */}
-       
- 
-<Header />
-
-{this.props.loading ? 
-  <div className="comp-overlay">
-    <img 
-          style={{marginTop:300, marginBottom:10, marginLeft:40, marginRight: 40, height:100}} 
-          src={loader}
-          />
-
-{/* <Image
-          style={{margin:10, height:10,}}
-          source={require('assets/loader.gif')}
-        /> */}
-  </div>
- : null }
-
-        <Route exact path='/' ></Route>
-        {/* Advanced way to implement lazy loading */}
-        {/* see how to pass function from the fallback */}
-          <Route  path='/student' render={()=> (
-                      <Suspense fallback={<div>Loading......</div>}>
-                          <FormContainer />
-                          </Suspense>
-                        )} 
-                        />
-           <Route exact path='/editStudent/:id' component={Edit}></Route> 
-           <Route exact path='/emp' component={Employee}></Route> 
-           {/* Old way to implement lazy routing usin hoc */}
-           <Route exact path='/form' component={asyncReactiveForms}></Route> 
-           
-      </div>
-      </React.Fragment>
+        <React.Fragment>
+          <div className="App">
+            <Header />
+            {this.props.loading ?
+              <div className="comp-overlay">
+                <img style={{ marginTop: 300, marginBottom: 10, marginLeft: 40, marginRight: 40, height: 100 }}
+                  src={loader} />
+              </div> : null}
+            <Route exact path='/' ></Route>
+            {/* Advanced way to implement lazy loading */}
+            {/* see how to pass function from the fallback */}
+            <Route path='/student' render={() => (
+              <Suspense fallback={<div>Loading......</div>}>
+                <FormContainer />
+              </Suspense>)}
+            />
+            <Route exact path='/editStudent/:id' component={Edit}></Route>
+            <Route exact path='/emp' component={Employee}></Route>
+            {/* Old way to implement lazy routing usin hoc */}
+            <Route exact path='/form' component={asyncReactiveForms}></Route>
+          </div>
+        </React.Fragment>
       </BrowserRouter>
-      
-
-
-     
     );
   }
- 
+
 
 }
 const mapStateToProps = state => {
@@ -94,8 +71,7 @@ const mapStateToProps = state => {
 const dispatchStateToProps = dispatch => {
   return {
     //loadSpinner: (param) => dispatch({type: LOGIN_FORM_VALUES, value: param})
-
-     // updateSearchResults: (param) => dispatch(searchResults(param)),
+    // updateSearchResults: (param) => dispatch(searchResults(param)),
     //  loadSpinner: (param) => dispatch({ type: LOADING, value: param })
   };
 };
