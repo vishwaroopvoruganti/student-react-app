@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import FormContainer from './Container/FormContainer';
 import Header from './Header.js'
+import ReactiveForm from './ReactiveForms/ReactiveForm'
 import Edit from './Edit.js';
 import {connect } from 'react-redux';
 import {
@@ -55,6 +56,7 @@ class App extends Component {
           <Route exact path='/student' component={FormContainer}></Route>
            <Route exact path='/editStudent/:id' component={Edit}></Route> 
            <Route exact path='/emp' component={Employee}></Route> 
+           <Route exact path='/form' component={ReactiveForm}></Route> 
            
       </div>
       
