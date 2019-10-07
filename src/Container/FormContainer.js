@@ -3,10 +3,14 @@ import Input from '../Form/Input.js';
 import Button from '../Form/Button.js';
 import Select from '../Form/Select.js';
 import ResultContainer from './ResultContainer.js';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import {
     Link
-  } from 'react-router-dom';
+} from 'react-router-dom';
+import { SEARCH_RESULTS } from '../actions';
+import { searchResults } from './store/actions';
+import { LOADING } from '../store/actions';
 class FormContainer extends Component {
     constructor(props) {
         super(props);
@@ -24,17 +28,17 @@ class FormContainer extends Component {
             },
             states: ['Male', 'Female', 'Others']
         };
-        
-    }
-    
 
-    handleRowClick(id){
+    }
+
+
+    handleRowClick(id) {
         console.log(this.props);
         console.log(id);
-       this.props.history.push({pathname:'/editStudent/'+id});
+        this.props.history.push({ pathname: '/editStudent/' + id });
     }
 
-    componentDidMount(){
+    componentDidMount() {
         console.log(this.props);
     }
 
@@ -45,11 +49,14 @@ class FormContainer extends Component {
         console.log(queryParams);
     }
     handleStudentSearchClick() {
+        this.props.loadSpinner(true);
         console.log(this.state.firstName);
         axios.get('https://hn.algolia.com/api/v1/search?query=')
             .then(response => {
-                console.log(response.data.hits);
-                this.setState({ studentsList: response.data.hits });
+                // console.log(response.data.hits);
+                // this.setState({ studentsList: response.data.hits });
+                this.props.updateSearchResults(response.data.hits);
+                this.props.loadSpinner(false);
             }).catch(error => {
                 console.log(error);
             })
@@ -90,9 +97,9 @@ class FormContainer extends Component {
         //         { ...prevState.user, [name]: value }
         // }))
 
-        const newUserForm = {...this.state.user}; //cloning the form into new variable
-      //  const updatedField = newUserForm.name;
-      this.setState({user: {...newUserForm, [name]: value}});
+        const newUserForm = { ...this.state.user }; //cloning the form into new variable
+        //  const updatedField = newUserForm.name;
+        this.setState({ user: { ...newUserForm, [name]: value } });
     }
 
     render() {
@@ -132,25 +139,43 @@ class FormContainer extends Component {
                         handleChange={this.handleInputChange}
                     />
 
-                    <Select 
+                    <Select
                         title={'State'}
                         name={'state'}
                         options={this.state.states}
                         placeholder={'Select'}
-                        value = {this.state.user.state}
-                        handleChange={this.handleInputChange}/>
+                        value={this.state.user.state}
+                        handleChange={this.handleInputChange} />
 
                     <Button
                         title={'Submit Form'}
                         action={this.submitForm}
                     />
                 </form>
-            <ResultContainer 
-                                data={this.state.studentsList}
-                                handleUpdateData={this.handleRowClick}/>
+                <ResultContainer
+                    data={this.props.studentsList}
+                    handleUpdateData={this.handleRowClick} />
+                <p>Paragraph</p>
+                {this.props.ctr}
             </div>
         );
     }
 }
 
-export default FormContainer;
+const mapStateToProps = state => {
+    return {
+        ctr: state.employee.counter,
+        studentsList: state.student.results
+    };
+};
+
+const dispatchStateToProps = dispatch => {
+    return {
+        // updateSearchResults: (param) => dispatch({type: SEARCH_RESULTS, value: param})
+
+        updateSearchResults: (param) => dispatch(searchResults(param)),
+        loadSpinner: (param) => dispatch({ type: LOADING, value: param })
+    };
+};
+
+export default connect(mapStateToProps, dispatchStateToProps)(FormContainer);

@@ -1,4 +1,5 @@
 import { tassign } from "tassign";
+import { INCREMENT, DECREMENT } from "../../actions";
 
 
 export const EMPLOYEE_INITIAL_STATE = {
@@ -27,8 +28,8 @@ function decrementCounter(state, action){
 
 export const employeeReducer = (state=EMPLOYEE_INITIAL_STATE, action) => {
     switch(action.type) {
-        case 'INCREMENT': return  incrementCounter(state, action);
-        case 'DECREMENT': return  decrementCounter(state, action);
+        case INCREMENT: return  incrementCounter(state, action);
+        case DECREMENT: return  decrementCounter(state, action);
     }
      return state;
 };
