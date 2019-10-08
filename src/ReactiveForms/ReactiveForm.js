@@ -1,98 +1,129 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-    FormBuilder,
-    FieldGroup,
-    FieldControl,
-    Validators,
-    FormGroup,
-} from "react-reactive-form";
-import {
-    ReactiveBase,
-    DateRange,
-    ResultCard,
-    SelectedFilters,
-    ReactiveList,
-    DatePicker
-} from '@appbaseio/reactivesearch';
+import { FormBuilder,FieldGroup,FieldControl,Validators,FormGroup,} from "react-reactive-form";
+import {ReactiveBase,DateRange,ResultCard,SelectedFilters,ReactiveList,DatePicker} from '@appbaseio/reactivesearch';
 import { LOGIN_FORM_VALUES } from '../store/actions';
 
 const TextInput = ({ handler, touched, hasError, meta }) => (
+
     <div>
+
         <input  {...handler() } />
+
         <span>
-            {touched
-                && hasError("required")
-                && `${meta.label} is required`}
+
+            {touched && hasError("required") && `${meta.label} is required`}
+
         </span>
+
     </div>
+    
 )
-
-
 
 class ReactiveForm extends Component {
 
     loginForm = FormBuilder.group({
+
         username: [""],
+
         password: ["", Validators.required],
+
         rememberMe: false,
+
         mtime: ["", Validators.required]
+
     });
 
-
     componentDidMount() {
+
         if (this.props.formValues) {
+
             this.patchValuesIntoForm(this.props.formValues);
+
         }
+
     }
 
     patchValuesIntoForm(formValues) {
+
         this.loginForm.patchValue({
+
             username: formValues.username,
+
             password: formValues.password,
+
             rememberMe: formValues.rememberMe,
+
             mtime: formValues.mtime
+
         });
+
     }
 
    
     sub7 = this.loginForm.valueChanges.subscribe(data => {
+
         console.log('Field changes');
+
     });
 
     sub7 = this.loginForm.get('password').valueChanges.subscribe(data => {
+
         if (this.loginForm.get('password').value) {
+
             this.loginForm.get('username').setValidators(Validators.compose([Validators.required, this.numberOnlyValidator]));
+           
             this.loginForm.get('username').updateValueAndValidity({ emitEvent: false });
+       
         }
         else {
+
             this.loginForm.get('username').setValidators([]);
+
             this.loginForm.get('username').updateValueAndValidity({ emitEvent: false });
+
         }
+
     });
 
     sub7 = this.loginForm.get('mtime').valueChanges.subscribe(data => {
+
         console.log(this.loginForm.get('mtime').value);
+
     });
 
     numberOnlyValidator(control) {
+
         let isValid = true;
+
         if (control.value != null && control.value != undefined) {
+
             let regx = RegExp('^[0-9]*$')
+
             isValid = regx.test(control.value);
+
         }
+
         return isValid ? null : { notnumber: true };
+
     }
 
     handleReset = () => {
+
         this.loginForm.reset();
+
     }
 
     handleSubmit = (e) => {
+
         e.preventDefault();
+
         console.log("Form values", this.loginForm.getRawValue());
+
         console.log("Form Obj", this.loginForm);
+
         this.props.updateFormValues(this.loginForm.getRawValue());
+
     }
 
     render() {
