@@ -46,9 +46,10 @@ class App extends Component {
             {/* Advanced way to implement lazy loading */}
             {/* see how to pass function from the fallback */}
             <Route path='/student' render={() => (
-              <Suspense fallback={<div>Loading......</div>}>
+              <Suspense fallback={<div>Loading...</div>}>
                 <FormContainer />
-              </Suspense>)}
+              </Suspense>
+              )}
             />
             <Route exact path='/editStudent/:id' component={Edit}></Route>
             <Route exact path='/emp' component={Employee}></Route>
@@ -72,7 +73,7 @@ const dispatchStateToProps = dispatch => {
   return {
     //loadSpinner: (param) => dispatch({type: LOGIN_FORM_VALUES, value: param})
     // updateSearchResults: (param) => dispatch(searchResults(param)),
-    //  loadSpinner: (param) => dispatch({ type: LOADING, value: param })
+      loadSpinner: (param) => dispatch({ type: LOADING, value: param })
   };
 };
 

@@ -8,7 +8,7 @@ import axios from 'axios';
 import {
     Link
 } from 'react-router-dom';
-import { SEARCH_RESULTS } from '../actions';
+import { SEARCH_RESULTS, DATA_TO_UPDATE } from '../actions';
 import { searchResults } from './store/actions';
 import { LOADING } from '../store/actions';
 class FormContainer extends Component {
@@ -32,10 +32,13 @@ class FormContainer extends Component {
     }
 
 
-    handleRowClick(id) {
+    handleRowClick(student) {
         console.log(this.props);
-        console.log(id);
-        this.props.history.push({ pathname: '/editStudent/' + id });
+        console.log(student.author);
+       this.props.history.replace({ pathname: '/editStudent/' + student.author });
+     // this.context.router.transitionTo('/editStudent/' + id)
+    //  this.context.history.replace({ pathname: '/editStudent/' + student.author});
+        this.props.dataToEdit(student);
     }
 
     componentDidMount() {
@@ -174,7 +177,8 @@ const dispatchStateToProps = dispatch => {
         // updateSearchResults: (param) => dispatch({type: SEARCH_RESULTS, value: param})
 
         updateSearchResults: (param) => dispatch(searchResults(param)),
-        loadSpinner: (param) => dispatch({ type: LOADING, value: param })
+        loadSpinner: (param) => dispatch({ type: LOADING, value: param }),
+        dataToEdit: (param) => dispatch({type: DATA_TO_UPDATE, value: param})
     };
 };
 

@@ -16,7 +16,7 @@ class ResultContainer extends Component {
             const { title, url, author } = student
             return (
                 // <Link to={'/editStudent/'+ author}>
-                <tr key={author} onClick={() =>this.props.handleUpdateData(author)}>
+                <tr key={author} onClick={() =>this.props.handleUpdateData(student)}>
                     <td>{title}</td>
                     <td>{url}</td>
                     <td>{author}</td>

@@ -13,7 +13,7 @@ const TextInput = ({ handler, touched, hasError, meta }) => (
         <input  {...handler() } />
         <span>
             {touched
-                && hasError("required")
+                && hasError("required") 
                 && `${meta.label} is required`}
         </span>
     </div>

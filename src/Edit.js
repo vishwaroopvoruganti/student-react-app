@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class Edit extends Component {
     constructor(props) {
@@ -28,5 +29,22 @@ class Edit extends Component {
     }
 
 }
+const mapStateToProps = state => {
+    return {
+        
+        studentData: state.student.updateValues,
+    };
+};
 
-export default Edit;
+const dispatchStateToProps = dispatch => {
+    return {
+        // updateSearchResults: (param) => dispatch({type: SEARCH_RESULTS, value: param})
+
+        // updateSearchResults: (param) => dispatch(searchResults(param)),
+        // loadSpinner: (param) => dispatch({ type: LOADING, value: param }),
+        // dataToEdit: (param) => dispatch({type: DATA_TO_UPDATE, value: param})
+    };
+};
+
+export default connect(mapStateToProps, dispatchStateToProps)(Edit);
+
