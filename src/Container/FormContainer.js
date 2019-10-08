@@ -5,17 +5,28 @@ import Select from '../Form/Select.js';
 import ResultContainer from './ResultContainer.js';
 import { connect } from 'react-redux';
 import axios from 'axios';
+
+
 import {
     Link
 } from 'react-router-dom';
 import { SEARCH_RESULTS, DATA_TO_UPDATE } from '../actions';
 import { searchResults } from './store/actions';
 import { LOADING } from '../store/actions';
+import {
+	ReactiveBase,
+	DateRange,
+	ResultCard,
+	SelectedFilters,
+    ReactiveList,
+    DatePicker
+} from '@appbaseio/reactivesearch';
 class FormContainer extends Component {
     constructor(props) {
         super(props);
         this.handleStudentSearchClick = this.handleStudentSearchClick.bind(this);
         this.handleRowClick = this.handleRowClick.bind(this);
+        this.dateChange = this.dateChange.bind(this);
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.submitForm = this.submitForm.bind(this);
@@ -65,6 +76,9 @@ class FormContainer extends Component {
             })
     }
 
+    dateChange(e){
+        console.log(e.target.value);
+    }
 
     handleChange = event => {
         this.setState({ firstName: event.target.value });
@@ -155,6 +169,29 @@ class FormContainer extends Component {
                         action={this.submitForm}
                     />
                 </form>
+
+                <ReactiveBase
+				app="airbeds-test-app"
+				credentials="X8RsOu0Lp:9b4fe1a4-58c6-4089-a042-505d86d9da30"
+				type="listing"
+			>
+                  <DatePicker
+  componentId="DateSensor"
+  dataField="mtime"
+  title="DatePicker"
+  defaultValue="01-04-2018"
+  focused={true}
+  numberOfMonths={1}
+  queryFormat="date"
+  placeholder="mm-dd-yyyy"
+  showClear={true}
+  clickUnselectsDay={true}
+  showFilter={true}
+  filterLabel="Date"
+  URLParams={false}
+  onChange={this.dateChange}
+/>  
+</ReactiveBase>
                 <ResultContainer
                     data={this.props.studentsList}
                     handleUpdateData={this.handleRowClick} />

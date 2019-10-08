@@ -16,10 +16,10 @@ class Header extends Component {
     
         <ul>
           <li>
-            <Link to="/"> Home </Link>
+            <Link to="/emp"> EMP </Link>
           </li>
           <li>
-            <Link to="/student"> About </Link>
+            <Link to="/student"> Search Results </Link>
           </li>
           <li>
             <Link to="/form"> Forms </Link>
