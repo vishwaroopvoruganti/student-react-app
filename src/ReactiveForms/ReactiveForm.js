@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FormBuilder,FieldGroup,FieldControl,Validators,FormGroup,} from "react-reactive-form";
-import {ReactiveBase,DateRange,ResultCard,SelectedFilters,ReactiveList,DatePicker} from '@appbaseio/reactivesearch';
+import { FormBuilder,
+         FieldGroup,
+         FieldControl,
+         Validators,
+         FormGroup,} from "react-reactive-form";
+import {ReactiveBase,
+        DateRange,
+        ResultCard,
+        SelectedFilters,
+        ReactiveList,
+        DatePicker} from '@appbaseio/reactivesearch';
 import { LOGIN_FORM_VALUES } from '../store/actions';
-
+import isValidNumber from '../utils/validNumber';
 const TextInput = ({ handler, touched, hasError, meta }) => (
 
     <div>
-
         <input  {...handler() } />
-
         <span>
-
             {touched && hasError("required") && `${meta.label} is required`}
-
         </span>
-
     </div>
-    
+
 )
 
 class ReactiveForm extends Component {
@@ -30,7 +34,9 @@ class ReactiveForm extends Component {
 
         rememberMe: false,
 
-        mtime: ["", Validators.required]
+        mtime: [""],
+
+        endDate: [""]
 
     });
 
@@ -54,7 +60,9 @@ class ReactiveForm extends Component {
 
             rememberMe: formValues.rememberMe,
 
-            mtime: formValues.mtime
+            mtime: formValues.mtime,
+
+            endDate: formValues.endDate
 
         });
 
@@ -66,6 +74,91 @@ class ReactiveForm extends Component {
         console.log('Field changes');
 
     });
+
+     sub6 = this.loginForm.valueChanges.subscribe(formData => {
+         console.log('Hello');
+        if ((this.loginForm.value.mtime || this.loginForm.value.endDate)) {
+          this.loginForm.get('mtime').setValidators(Validators.compose([Validators.required, this.invalidDateFormat]));
+          this.loginForm.get('endDate').setValidators(Validators.compose([Validators.required, this.invalidDateFormat]));
+          this.loginForm.get('mtime').updateValueAndValidity({ emitEvent: false })
+          this.loginForm.get('endDate').updateValueAndValidity({ emitEvent: false });
+      
+        } else {
+          this.loginForm.get('mtime').setValidators([]);
+          this.loginForm.get('endDate').setValidators([]);
+          this.loginForm.get('mtime').updateValueAndValidity({ emitEvent: false });
+          this.loginForm.get('endDate').updateValueAndValidity({ emitEvent: false });
+          
+  
+        }
+        this.checkDateRange();
+  
+  
+      });
+
+        
+
+     invalidDateFormat(control) {
+         debugger;
+        if(control.value){
+             console.log(control);
+             console.log(control.value.getUTCDate());
+             console.log(control.value.getMonth());
+             console.log(control.value.getFullYear());
+
+        }
+         
+        if (control.value == null || control.value=='') {
+          return null;
+        } else {
+          let isFormatValid =
+            control.value != null && (control.value.getFullYear() != undefined)
+            && (isValidNumber(control.value.getFullYear()) 
+            && control.value.getFullYear() >= 1900 
+            && control.value.getFullYear() <= 9999)
+            && (control.value.getMonth() != undefined)
+            && (isValidNumber(control.value.getMonth()) 
+            && control.value.getMonth() >= 0 
+            && control.value.getMonth() <= 12)
+            && (control.value.getUTCDate() != undefined)
+            && (isValidNumber(control.value.getUTCDate()) 
+            && control.value.getUTCDate() >= 0 
+            && control.value.getUTCDate() <= 31)
+            ;
+          let isValid = isFormatValid;
+          return isValid ? null : { notValidFormat: true };
+        }
+        return null;
+      }
+
+  
+
+      checkDateRange() {
+
+        let isValid = true;
+    
+        this.dateErrorMessage = false;
+        //console.log(this.loginForm.controls && this.loginForm.controls['mtime'] && this.loginForm.controls['mtime'].value);
+    
+        if (this.loginForm.controls['mtime'].value &&  this.loginForm.controls['endDate'].value &&
+    
+          this.loginForm.controls['mtime'].valid && this.loginForm.controls['endDate'].valid) {
+    
+          if (new Date(this.loginForm.get('mtime').value) >
+    
+            new Date(this.loginForm.get('endDate').value)) {
+    
+            isValid = false;
+    
+            this.dateErrorMessage = true;
+    
+          };
+    
+        }
+    
+        return isValid;
+    
+      }
 
     sub7 = this.loginForm.get('password').valueChanges.subscribe(data => {
 
@@ -172,6 +265,7 @@ class ReactiveForm extends Component {
                                             showFilter={true}
                                             filterLabel="Date"
                                             URLParams={false}
+                                          //  value = {this.loginForm.controls && this.loginForm.controls['mtime'].value !== ''? this.loginForm.controls['mtime'].value : null}
                                         />
                                     </div>
                                 )}
@@ -180,6 +274,47 @@ class ReactiveForm extends Component {
                                 {(this.loginForm.controls && this.loginForm.controls['mtime']
                                     && this.loginForm.controls['mtime'].errors
                                     && this.loginForm.controls['mtime'].errors.required) ? <p>This Field is required</p> : null}
+                            </div>
+                           
+                            <div>
+                            {(this.loginForm.controls && this.loginForm.controls['mtime']
+                                    && this.loginForm.controls['mtime'].errors
+                                    && this.loginForm.controls['mtime'].errors.notValidFormat) ? 
+                                    <p>Please enter mm-dd-yyyy</p> : null}
+                            </div>
+                            <div>
+                                {this.dateErrorMessage ? <p>Enter Date lesser than End Date</p> : null}
+                            </div>
+                            <FieldControl
+                                name="endDate"
+                                render={({ handler }) => (
+                                    <div>
+                                        <DatePicker {...handler("DatePicker") }
+                                            dataField="endDate"
+                                            meta={{ label: Date }}
+                                            componentId="endDateSensor"
+                                            title="endDatePicker"
+                                            queryFormat="date"
+                                            placeholder="mm-dd-yyyy"
+                                            defaultValue={null}
+                                            focused={true}
+                                            numberOfMonths={1}
+                                            showClear={true}
+                                            clickUnselectsDay={true}
+                                            showFilter={true}
+                                            filterLabel="Date"
+                                            URLParams={false}
+                                           // value = {this.loginForm.controls && this.loginForm.controls['endDate'].value !== ''? this.loginForm.controls['endDate'].value : null}
+
+                                        />
+                                    </div>
+                                )}
+                            />
+                            <div>
+                                {(this.loginForm.controls && this.loginForm.controls['endDate']
+                                    && this.loginForm.controls['endDate'].errors
+                                    && this.loginForm.controls['endDate'].errors.required) ? 
+                                    <p>This Field is required</p> : null}
                             </div>
                             <button type="button" onClick={this.handleReset}> Reset </button>
                             <button type="submit">Submit</button>
@@ -207,18 +342,18 @@ const dispatchStateToProps = dispatch => {
 };
 export default connect(mapStateToProps, dispatchStateToProps)(ReactiveForm);
 
- //   sub6 = this.caFilterForm.valueChanges.subscribe(formData => {
-    //     if ((this.caFilterForm.value.beginDate || this.caFilterForm.value.endDate)) {
-    //       this.caFilterForm.get('beginDate').setValidators(Validators.compose([Validators.required, invalidDateFormat]));
-    //       this.caFilterForm.get('endDate').setValidators(Validators.compose([Validators.required, , invalidDateFormat]));
-    //       this.caFilterForm.get('beginDate').updateValueAndValidity({ emitEvent: false })
-    //       this.caFilterForm.get('endDate').updateValueAndValidity({ emitEvent: false });
+ //   sub6 = this.loginForm.valueChanges.subscribe(formData => {
+    //     if ((this.loginForm.value.mtime || this.loginForm.value.endDate)) {
+    //       this.loginForm.get('mtime').setValidators(Validators.compose([Validators.required, invalidDateFormat]));
+    //       this.loginForm.get('endDate').setValidators(Validators.compose([Validators.required, , invalidDateFormat]));
+    //       this.loginForm.get('mtime').updateValueAndValidity({ emitEvent: false })
+    //       this.loginForm.get('endDate').updateValueAndValidity({ emitEvent: false });
 
-    //     } else if (this.caFilterForm.value.effFromDt == null && this.caFilterForm.value.effToDt == null) {
-    //       this.caFilterForm.get('beginDate').setValidators([]);
-    //       this.caFilterForm.get('endDate').setValidators([]);
-    //       this.caFilterForm.get('beginDate').updateValueAndValidity({ emitEvent: false });
-    //       this.caFilterForm.get('endDate').updateValueAndValidity({ emitEvent: false });
+    //     } else if (this.loginForm.value.effFromDt == null && this.loginForm.value.effToDt == null) {
+    //       this.loginForm.get('mtime').setValidators([]);
+    //       this.loginForm.get('endDate').setValidators([]);
+    //       this.loginForm.get('mtime').updateValueAndValidity({ emitEvent: false });
+    //       this.loginForm.get('endDate').updateValueAndValidity({ emitEvent: false });
 
 
     //     }
