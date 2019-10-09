@@ -68,6 +68,12 @@ class ReactiveForm extends Component {
 
     }
 
+
+    errorControls(controlName){
+         return this.loginForm.controls[controlName];
+    }
+    
+
    
     sub7 = this.loginForm.valueChanges.subscribe(data => {
 
@@ -77,7 +83,7 @@ class ReactiveForm extends Component {
 
      sub6 = this.loginForm.valueChanges.subscribe(formData => {
          console.log('Hello');
-        if ((this.loginForm.value.mtime || this.loginForm.value.endDate)) {
+        if ((this.loginForm.value.mtime || this.loginForm.value.mtime=='' || this.loginForm.value.endDate)) {
           this.loginForm.get('mtime').setValidators(Validators.compose([Validators.required, this.invalidDateFormat]));
           this.loginForm.get('endDate').setValidators(Validators.compose([Validators.required, this.invalidDateFormat]));
           this.loginForm.get('mtime').updateValueAndValidity({ emitEvent: false })
@@ -99,12 +105,12 @@ class ReactiveForm extends Component {
         
 
      invalidDateFormat(control) {
-         debugger;
+         
         if(control.value){
-             console.log(control);
-             console.log(control.value.getUTCDate());
-             console.log(control.value.getMonth());
-             console.log(control.value.getFullYear());
+            //  console.log(control);
+            //  console.log(control.value.getUTCDate());
+            //  console.log(control.value.getMonth());
+            //  console.log(control.value.getFullYear());
 
         }
          
@@ -265,21 +271,21 @@ class ReactiveForm extends Component {
                                             showFilter={true}
                                             filterLabel="Date"
                                             URLParams={false}
-                                          //  value = {this.loginForm.controls && this.loginForm.controls['mtime'].value !== ''? this.loginForm.controls['mtime'].value : null}
+                                          //  value = {this.errorControls && this.errorControls['mtime'].value !== ''? this.errorControls['mtime'].value : null}
                                         />
                                     </div>
                                 )}
                             />
                             <div>
-                                {(this.loginForm.controls && this.loginForm.controls['mtime']
-                                    && this.loginForm.controls['mtime'].errors
-                                    && this.loginForm.controls['mtime'].errors.required) ? <p>This Field is required</p> : null}
+                            {(this.loginForm.controls && this.errorControls('mtime')
+                                    && this.errorControls('mtime').errors
+                                    && this.errorControls('mtime').errors.required) ? <p>This Field is required</p> : null}
                             </div>
-                           
+                            
                             <div>
-                            {(this.loginForm.controls && this.loginForm.controls['mtime']
-                                    && this.loginForm.controls['mtime'].errors
-                                    && this.loginForm.controls['mtime'].errors.notValidFormat) ? 
+                            {(this.loginForm.controls && this.errorControls['mtime']
+                                    && this.errorControls['mtime'].errors
+                                    && this.errorControls['mtime'].errors.notValidFormat) ? 
                                     <p>Please enter mm-dd-yyyy</p> : null}
                             </div>
                             <div>
@@ -311,9 +317,9 @@ class ReactiveForm extends Component {
                                 )}
                             />
                             <div>
-                                {(this.loginForm.controls && this.loginForm.controls['endDate']
-                                    && this.loginForm.controls['endDate'].errors
-                                    && this.loginForm.controls['endDate'].errors.required) ? 
+                                {(this.loginForm.controls && this.errorControls['endDate']
+                                    && this.errorControls['endDate'].errors
+                                    && this.errorControls['endDate'].errors.required) ? 
                                     <p>This Field is required</p> : null}
                             </div>
                             <button type="button" onClick={this.handleReset}> Reset </button>
@@ -361,3 +367,9 @@ export default connect(mapStateToProps, dispatchStateToProps)(ReactiveForm);
 
 
     //   });
+    // <div>
+                            //     {(this.errorControls && this.errorControls['mtime']
+                            //         && this.errorControls['mtime'].errors
+                            //         && this.errorControls['mtime'].errors.required) ? <p>This Field is required</p> : null}
+                            // </div>
+                           

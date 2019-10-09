@@ -1,6 +1,5 @@
 
 function isValidNumber(obj) {
-    debugger;
     let isNumber = false;
 
     if (obj != null && obj != undefined) {
