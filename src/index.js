@@ -6,6 +6,7 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import * as serviceWorker from './serviceWorker';
 import {Provider} from 'react-redux';
 import { rootReducer } from './store';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 //setting up redux devtools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

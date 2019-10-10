@@ -7,18 +7,18 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 
-import {
-    Link
-} from 'react-router-dom';
+// import {
+//    // Link
+// } from 'react-router-dom';
 import { SEARCH_RESULTS, DATA_TO_UPDATE } from '../actions';
 import { searchResults } from './store/actions';
 import { LOADING } from '../store/actions';
 import {
 	ReactiveBase,
-	DateRange,
-	ResultCard,
-	SelectedFilters,
-    ReactiveList,
+	//DateRange,
+	//ResultCard,
+	//SelectedFilters,
+    //ReactiveList,
     DatePicker
 } from '@appbaseio/reactivesearch';
 class FormContainer extends Component {

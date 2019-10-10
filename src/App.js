@@ -2,14 +2,13 @@ import React, { Component, Suspense } from 'react';
 import './App.css';
 // import FormContainer from './Container/FormContainer';
 import Header from './Header.js'
-// import ReactiveForm from './ReactiveForms/ReactiveForm';
 import asyncComponent from './hoc/asyncComponent';
 import Edit from './Edit.js';
 import { connect } from 'react-redux';
 import {
   BrowserRouter,
   Route,
-  Link
+ // Link
 } from 'react-router-dom';
 import loader from './assets/loader.gif'
 import Employee from './Employee/Employee.js';
@@ -18,6 +17,7 @@ const asyncReactiveForms = asyncComponent(() => {
   return import('./ReactiveForms/ReactiveForm');
 });
 const FormContainer = React.lazy(() => import('./Container/FormContainer'));
+const CenterContent = React.lazy(() => import('./CenterContent/CenterContent'));
 class App extends Component {
   constructor(props) {
     super(props);
@@ -56,6 +56,12 @@ class App extends Component {
             <Route exact path='/emp' component={Employee}></Route>
             {/* Old way to implement lazy routing usin hoc */}
             <Route exact path='/form' component={asyncReactiveForms}></Route>
+            <Route path='/center-content' render={() => (
+              <Suspense fallback={<div>Loading...</div>}>
+                <CenterContent />
+              </Suspense>
+              )}
+            />
           </div>
         </React.Fragment>
       </BrowserRouter>
