@@ -16,7 +16,7 @@ class EmployeeTab extends Component {
     }
 
     componentWillUnmount() {
-        console.log('destroyed');
+        console.log('Emp destroyed');
     }
 
     render(){

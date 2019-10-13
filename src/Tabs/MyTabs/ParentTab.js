@@ -16,7 +16,7 @@ class ParentTab extends Component {
     }
 
     componentWillUnmount() {
-        console.log('destroyed');
+        console.log('Parent destroyed');
     }
 
     render(){

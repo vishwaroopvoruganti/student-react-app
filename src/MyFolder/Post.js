@@ -6,6 +6,9 @@ constructor(props){
 
 
 }
+componentWillUnmount() {
+    console.log('Post destroyed');
+}
 render(){
     return(
         <div>Acc2 JKBKJDBK</div>

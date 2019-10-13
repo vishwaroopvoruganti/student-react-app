@@ -16,7 +16,7 @@ class StudentTab extends Component {
     }
 
     componentWillUnmount() {
-        console.log('destroyed');
+        console.log('Student destroyed');
     }
 
     render(){
