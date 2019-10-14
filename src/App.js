@@ -5,14 +5,11 @@ import Header from './Header.js'
 import asyncComponent from './hoc/asyncComponent';
 import Edit from './Edit.js';
 import { connect } from 'react-redux';
-import {
-  BrowserRouter,
-  Route,
- // Link
-} from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import loader from './assets/loader.gif'
 import Employee from './Employee/Employee.js';
 import { LOADING } from './store/actions';
+import CustomeTabs from './Tabs/CustomeTabs';
 const asyncReactiveForms = asyncComponent(() => {
   return import('./ReactiveForms/ReactiveForm');
 });
@@ -40,7 +37,15 @@ class App extends Component {
             <Header />
             {this.props.loading ?
               <div className="comp-overlay">
-                <img style={{ marginTop: 300, marginBottom: 10, marginLeft: 40, marginRight: 40, height: 100 }}
+                <img  alt="description"
+                      style={{ 
+                              marginTop: 300, 
+                              marginBottom: 10, 
+                              marginLeft: 40, 
+                              marginRight: 40, 
+                              height: 100 
+                            }}
+                            
                   src={loader} />
               </div> : null}
             <Route exact path='/' ></Route>
@@ -56,6 +61,7 @@ class App extends Component {
             <Route exact path='/emp' component={Employee}></Route>
             {/* Old way to implement lazy routing usin hoc */}
             <Route exact path='/form' component={asyncReactiveForms}></Route>
+            <Route exact path='/tab-content' component={CustomeTabs}></Route>
             <Route path='/center-content' render={() => (
               <Suspense fallback={<div>Loading...</div>}>
                 <CenterContent />

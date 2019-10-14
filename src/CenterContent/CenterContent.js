@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
-import  { Redirect } from 'react-router-dom';
-import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
-import {
-    BrowserRouter,
-    Route,
-    Link
-} from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import ReactiveForm from '../ReactiveForms/ReactiveForm';
 import Post from '../MyFolder/Post';
 import CustomeTabs from '../Tabs/CustomeTabs';
@@ -20,7 +13,7 @@ export class ResultContainer extends Component {
             accordians: [
                 { name: 'Acc1', id: 'a1' },
                 { name: 'Acc2', id: 'a2' },
-                { name: 'Acc3', id: 'a3' }
+                { name: 'Acc3', id: 'a3' },
             ],
             accordianId: 'a1',
         };
@@ -30,13 +23,13 @@ export class ResultContainer extends Component {
         console.log(this.props);
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         console.log('destroyed');
     }
     clickAcc = (id) => {
         console.log(id + 'Acc clicked');
-        console.log( this.props );
-        this.setState({accordianId: id});
+        console.log(this.props);
+        this.setState({ accordianId: id });
     }
 
     renderAccordian = () => {
@@ -44,38 +37,26 @@ export class ResultContainer extends Component {
             const { name, id } = acc
             return (
                 //Based on routing we will display accordians
-               // <Card key={id} 
-                //onClick={() => this.clickAcc(id)}>
-                <Route render={({ history}) => (
-                    <Card key={id} 
-                      onClick={() => { history.push('/center-content/'+id) }}
-                    >
-                      
-                      <Accordion.Toggle as={Card.Header} eventKey={id}>
-                        {name}
-                    </Accordion.Toggle>
-                    <Accordion.Collapse eventKey={id}>
-                        <Card.Body>
-                            {/* <BrowserRouter>
-                                <React.Fragment> */}
-                                    <Route exact path='/center-content/a1' component={ReactiveForm}></Route>
-                                    <Route exact path='/center-content/a2' component={Post}></Route>
-                                    <Route exact path='/center-content/a3' component={CustomeTabs}></Route>
-                                    {/* <Route exact path='/center-content/3' component={ReactiveForm}></Route> */}
-                                {/* </React.Fragment>
-                            </BrowserRouter> */}
-                        </Card.Body>
-                    </Accordion.Collapse>
+                <Route key={id} render={({ history }) => (
+                    <Card key={id} style={{ 
+                        marginBottom: 10, 
+                     }}
+                          onClick={() => { history.push('/center-content/' + id) }}>
+                        <Accordion.Toggle as={Card.Header} eventKey={id}>
+                            {name}
+                        </Accordion.Toggle>
+                        <Accordion.Collapse eventKey={id}>
+                            <Card.Body >
+                                <Route exact path='/center-content/a1' component={ReactiveForm}></Route>
+                                <Route exact path='/center-content/a2' component={Post}></Route>
+                                <Route exact path='/center-content/a3' component={CustomeTabs}></Route>
+                            </Card.Body>
+                        </Accordion.Collapse>
                     </Card>
-                  )} />
-              //  onClick={() => { history.push('/center-content/a1') }}
-                
-                   
+                )} />
             )
         })
     }
-
-
     render() {
         return (
             <div>
@@ -86,7 +67,6 @@ export class ResultContainer extends Component {
             </div>
         );
     }
-
 }
 
 export default ResultContainer;

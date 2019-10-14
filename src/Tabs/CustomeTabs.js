@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import TabContent from 'react-bootstrap/TabContent';
-import TabPane from 'react-bootstrap/TabPane';
-import {
-    BrowserRouter,
-    Route,
-    Link
-} from 'react-router-dom';
+//import { Route } from 'react-router-dom';
 import EmployeeTab from './MyTabs/EmployeeTab';
 import StudentTab from './MyTabs/StudentTab';
 import ParentTab from './MyTabs/ParentTab';
@@ -33,42 +27,54 @@ class CustomeTabs extends Component {
         console.log('destroyed');
     }
 
-    // handleSelect = (key) => {
-    //     //this.props.history.push('/center-content/a3/+'+id)
-    //     console.log(key);
-    // }
+    //With this approach i tried to render tabs in a dynamic way but I got nested routing 
+    //issues while dealing with this approach, however my intention to render and remove from dom is 
+    //already provided by ngb-tabs using (mountOnEnter and unmountOnExit)
 
-    renderTabs = () => {
-        return this.state.tabs.map((tab, index) => {
-            const { name, id } = tab
-            return (
-              //  <Route render={({ history}) => (
-                <Tab eventKey={id} title={name} key={id}
-                onSelect={this.handleSelect}>
-                <div>
-                    <Route exact path='/center-content/a3/t1' component={ParentTab}></Route>
-                    <Route exact path='/center-content/a3/t2' component={StudentTab}></Route>
-                    <Route exact path='/center-content/a3/t3' component={EmployeeTab}></Route>
-                    </div>
-                </Tab>
-              //  )} />
-            )
-        })
+    // renderTabs = () => {
+    //     return this.state.tabs.map((tab, index) => {
+    //         const { name, id } = tab
+    //         return (
+
+    //             <Tab eventKey={id} title={name} key={id}>
+    //             <div>
+    //                 <Route exact path='/center-content/a3/t1' component={ParentTab}></Route>
+    //                 <Route exact path='/center-content/a3/t2' component={StudentTab}></Route>
+    //                 <Route exact path='/center-content/a3/t3' component={EmployeeTab}></Route>
+    //                 </div>
+    //             </Tab>
+
+    //         )
+    //     })
+    // }
+    tabClick(tab) {
+        console.log('/center-content/a3/' + tab);
+        this.props.history.push('/center-content/a3/' + tab)
     }
-   tabClick(tab) {
-        console.log('/center-content/a3/'+tab);
-        this.props.history.push('/center-content/a3/'+tab)
-      }
     render() {
         return (
             <div>
-            <Tabs defaultActiveKey={this.state.tabs[0].id} transition={false} id="noanim-tab-example"
-          //  onSelect={this.handleSelect()}
-          onSelect={(index) => this.tabClick(index)}
-         // changeTab={this.handleClick} 
-          >
-                {this.renderTabs()}
-            </Tabs>
+                <Tabs defaultActiveKey={this.state.tabs[0].id}
+                    mountOnEnter={true} // renders the component on domonly when it is true
+                    unmountOnExit={true} //unmounte from dom when it is true
+                    transition={false}
+                    id="noanim-tab-example"
+                    onSelect={(index) => this.tabClick(index)}>
+                    {/*  Call this function
+                    {this.renderTabs()} */}
+
+                    <Tab eventKey="home" title="Home">
+                        <ParentTab />
+                    </Tab>
+                    <Tab eventKey="profile" title="Profile">
+                        <StudentTab />
+                    </Tab>
+                    <Tab eventKey="contact" title="Contact">
+                        <EmployeeTab />
+                    </Tab>
+                </Tabs>
+
+
             </div>
         );
     }

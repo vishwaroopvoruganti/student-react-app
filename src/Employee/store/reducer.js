@@ -30,8 +30,9 @@ export const employeeReducer = (state=EMPLOYEE_INITIAL_STATE, action) => {
     switch(action.type) {
         case INCREMENT: return  incrementCounter(state, action);
         case DECREMENT: return  decrementCounter(state, action);
+        default: return state;
     }
-     return state;
+  //   return state;
 };
 
 export default employeeReducer;

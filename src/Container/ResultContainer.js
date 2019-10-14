@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
-
-import axios from 'axios';
-import {
-    Link
-  } from 'react-router-dom'
 class ResultContainer extends Component {
 
 
-    constructor(props) {
-        super(props);
-    }
+   
   
     renderStudentData() {
         return this.props.data.map((student, index) => {
@@ -26,7 +19,7 @@ class ResultContainer extends Component {
         })
     }
     render(){
-        if(this.props.data.length == 0){
+        if(this.props.data.length === 0){
             return (
                 <div>No Results to Display</div>
             );

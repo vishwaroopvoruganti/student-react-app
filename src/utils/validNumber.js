@@ -2,7 +2,7 @@
 function isValidNumber(obj) {
     let isNumber = false;
 
-    if (obj != null && obj != undefined) {
+    if (obj !== null && obj !== undefined) {
         isNumber = isNaN(obj) ? false : obj > 0 ? true : false;
     }
 

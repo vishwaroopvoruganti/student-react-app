@@ -23,7 +23,7 @@ export const studentReducer=(state= STUDENT_INITIAL_STATE, action) => {
     switch(action.type) {
         case SEARCH_RESULTS: return searchResults(state, action);
         case DATA_TO_UPDATE: return updateRecord(state, action);
-       // default: return state;
+        default: return state;
     }
-    return state;
+   // return state;
 }

@@ -23,6 +23,7 @@ export const homeReducer = (state= HOME_INITIAL_STATE, action) => {
     switch(action.type) {
         case LOADING: return loading(state, action);
         case LOGIN_FORM_VALUES: return formValues(state, action);
+        default: return state;
     }
-    return state;
+    //return state;
 }

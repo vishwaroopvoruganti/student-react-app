@@ -5,22 +5,10 @@ import Select from '../Form/Select.js';
 import ResultContainer from './ResultContainer.js';
 import { connect } from 'react-redux';
 import axios from 'axios';
-
-
-// import {
-//    // Link
-// } from 'react-router-dom';
-import { SEARCH_RESULTS, DATA_TO_UPDATE } from '../actions';
+import { DATA_TO_UPDATE } from '../actions';
 import { searchResults } from './store/actions';
 import { LOADING } from '../store/actions';
-import {
-	ReactiveBase,
-	//DateRange,
-	//ResultCard,
-	//SelectedFilters,
-    //ReactiveList,
-    DatePicker
-} from '@appbaseio/reactivesearch';
+import { ReactiveBase, DatePicker } from '@appbaseio/reactivesearch';
 class FormContainer extends Component {
     constructor(props) {
         super(props);
@@ -44,12 +32,8 @@ class FormContainer extends Component {
 
 
     handleRowClick(student) {
-        console.log(this.props);
-        console.log(student.author);
        this.props.history.replace({ pathname: '/editStudent/' + student.author });
-     // this.context.router.transitionTo('/editStudent/' + id)
-    //  this.context.history.replace({ pathname: '/editStudent/' + student.author});
-        this.props.dataToEdit(student);
+       this.props.dataToEdit(student);
     }
 
     componentDidMount() {
@@ -57,18 +41,13 @@ class FormContainer extends Component {
     }
 
     submitForm() {
-        let formvalues = this.state.user;
-        console.log(formvalues);
-        let queryParams = this.paramsStringify(formvalues);
-        console.log(queryParams);
+     //   let formvalues = this.state.user;
+     //  let queryParams = this.paramsStringify(formvalues);
     }
     handleStudentSearchClick() {
         this.props.loadSpinner(true);
-        console.log(this.state.firstName);
         axios.get('https://hn.algolia.com/api/v1/search?query=')
             .then(response => {
-                // console.log(response.data.hits);
-                // this.setState({ studentsList: response.data.hits });
                 this.props.updateSearchResults(response.data.hits);
                 this.props.loadSpinner(false);
             }).catch(error => {
@@ -77,7 +56,7 @@ class FormContainer extends Component {
     }
 
     dateChange(e){
-        console.log(e.target.value);
+       
     }
 
     handleChange = event => {
@@ -100,8 +79,9 @@ class FormContainer extends Component {
             if (params[k] !== "") {
                 finalParams = (finalParams === "?" ? finalParams : finalParams + "&") + k + "=" + params[k].toString();
             }
+           
         });
-        return finalParams;
+        return finalParams; 
     }
 
     handleInputChange(e) {
@@ -121,7 +101,7 @@ class FormContainer extends Component {
 
     render() {
         return (
-            <div >
+            <div>
                 {/* <input
                     type="text"
                     name="firstName"

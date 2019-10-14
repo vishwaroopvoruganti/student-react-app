@@ -1,9 +1,4 @@
 import React, { Component } from 'react';
-import {
-    BrowserRouter,
-    Route,
-    Link
-} from 'react-router-dom';
 class StudentTab extends Component {
     constructor(props) {
         super(props);
@@ -12,7 +7,8 @@ class StudentTab extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
+       // console.log(this.props);
+       console.log('Stu C');
     }
 
     componentWillUnmount() {

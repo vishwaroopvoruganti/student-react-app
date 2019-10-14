@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 
 class Post extends Component {
-constructor(props){
-    super(props);
 
-
-}
 componentWillUnmount() {
     console.log('Post destroyed');
 }
