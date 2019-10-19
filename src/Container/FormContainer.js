@@ -149,11 +149,11 @@ class FormContainer extends Component {
                         action={this.submitForm}
                     />
                 </form>
-
+                
                 <ReactiveBase
-				app="airbeds-test-app"
-				credentials="X8RsOu0Lp:9b4fe1a4-58c6-4089-a042-505d86d9da30"
-				type="listing"
+				app="products"
+				url="https://7ab8585e157940e48315591a8b8e1344.us-east-1.aws.found.io:9243"
+				//ype="listing"
 			>
                   <DatePicker
   componentId="DateSensor"

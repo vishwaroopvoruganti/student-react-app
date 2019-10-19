@@ -62,19 +62,16 @@ class CustomeTabs extends Component {
                     onSelect={(index) => this.tabClick(index)}>
                     {/*  Call this function
                     {this.renderTabs()} */}
-
-                    <Tab eventKey="home" title="Home">
+                    <Tab eventKey="home" title="Parent">
                         <ParentTab />
                     </Tab>
-                    <Tab eventKey="profile" title="Profile">
+                    <Tab eventKey="profile" title="Student">
                         <StudentTab />
                     </Tab>
-                    <Tab eventKey="contact" title="Contact">
+                    <Tab eventKey="contact" title="Employee">
                         <EmployeeTab />
                     </Tab>
                 </Tabs>
-
-
             </div>
         );
     }
