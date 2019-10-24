@@ -15,7 +15,7 @@ import {
     FormBuilder,
     FieldGroup,
     FieldControl,
-    //Validators,
+    Validators,
     FormGroup,
 } from "react-reactive-form";
 import { REACTIVE_SEARCH_FORM_VALUES } from '../store/actions';
@@ -75,20 +75,20 @@ class EmployeeTab extends Component {
 
     sub6 = this.loginForm.valueChanges.subscribe(formData => {
         console.log(this.loginForm);
-        // if ((this.loginForm.value.startDate || this.loginForm.value.endDate)) {
-        //     this.loginForm.get('startDate').setValidators(Validators.compose([Validators.required]));
-        //     this.loginForm.get('endDate').setValidators(Validators.compose([Validators.required]));
-        //     this.loginForm.get('startDate').updateValueAndValidity({ emitEvent: false })
-        //     this.loginForm.get('endDate').updateValueAndValidity({ emitEvent: false });
+        if ((this.loginForm.value.startDate || this.loginForm.value.endDate)) {
+            this.loginForm.get('startDate').setValidators(Validators.compose([Validators.required]));
+            this.loginForm.get('endDate').setValidators(Validators.compose([Validators.required]));
+            this.loginForm.get('startDate').updateValueAndValidity({ emitEvent: false })
+            this.loginForm.get('endDate').updateValueAndValidity({ emitEvent: false });
 
-        // } else if ((this.loginForm.value.startDate === null && this.loginForm.value.endDate === null) ||
-        //     (this.loginForm.value.startDate === '' && this.loginForm.value.endDate === '')) {
-        //     this.loginForm.get('startDate').setValidators([]);
-        //     this.loginForm.get('endDate').setValidators([]);
-        //     this.loginForm.get('startDate').updateValueAndValidity({ emitEvent: false });
-        //     this.loginForm.get('endDate').updateValueAndValidity({ emitEvent: false });
-        // }
-        // this.checkDateRange();
+        } else if ((this.loginForm.value.startDate === null && this.loginForm.value.endDate === null) ||
+            (this.loginForm.value.startDate === '' && this.loginForm.value.endDate === '')) {
+            this.loginForm.get('startDate').setValidators([]);
+            this.loginForm.get('endDate').setValidators([]);
+            this.loginForm.get('startDate').updateValueAndValidity({ emitEvent: false });
+            this.loginForm.get('endDate').updateValueAndValidity({ emitEvent: false });
+        }
+        this.checkDateRange();
         console.log('Hello');
         this.props.updateFormValues(this.loginForm.getRawValue());
 
@@ -143,7 +143,7 @@ class EmployeeTab extends Component {
                                                 autosuggest={true}
                                                 highlight={true}
                                                 highlightField="studentName"
-                                                queryFormat="or"
+                                                queryFormat="and"
                                                 fuzziness={0}
                                                 debounce={100}
                                                 react={{
@@ -152,6 +152,7 @@ class EmployeeTab extends Component {
                                                 showFilter={true}
                                                 filterLabel="Venue filter"
                                                 URLParams={false}
+                                                loader = {true}
                                             />
                                         </div>
                                     )}
@@ -162,20 +163,24 @@ class EmployeeTab extends Component {
                                         <div>
                                             <SingleList {...handler("SingleList") }
                                                 componentId="CitySensor"
-                                                dataField="name.keyword"
-                                                title="Single List"
+                                                dataField="in_stock"                                                
                                                 size={100}
                                                 sortBy="count"
+                                                title="S L"
                                                 defaultValue=""
+                                               
+                                              
+                
+                                                queryFormat="or"
                                                 selectAllLabel="All Cities"
                                                 showRadio={true}
                                                 showCount={true}
                                                 showSearch={true}
                                                 placeholder="Single List"
                                                 react={{
-                                                    and: ['CategoryFilter', 'SearchFilter'],
+                                                    and: ['SearchSensor', 'CitySensor','MultiCitySensor', 'PriceSensor' ]
                                                 }}
-                                                showFilter={true}
+                                                showFilter={false}
                                                 filterLabel="City"
                                                 URLParams={false}
                                                 loader="Loading ..."
@@ -187,13 +192,13 @@ class EmployeeTab extends Component {
                                     name="ml"
                                     render={({ handler }) => (
                                         <div>
-                                            <MultiList {...handler("SingleList") }
+                                            <MultiList {...handler("MultiList") }
                                                 componentId="MultiCitySensor"
                                                 dataField="name.keyword"
                                                 title="Multi List"
                                                 size={100}
                                                 sortBy="asc"
-                                                defaultValue={[]}
+                                                defaultValue={[]} 
                                                 queryFormat="or"
                                                 selectAllLabel="All Cities"
                                                 showCheckbox={true}
@@ -201,7 +206,7 @@ class EmployeeTab extends Component {
                                                 showSearch={true}
                                                 placeholder="Multi List"
                                                 react={{
-                                                    and: ['CategoryFilter', 'SearchFilter'],
+                                                    and: ['SearchSensor', 'CitySensor','MultiCitySensor', 'PriceSensor' ]
                                                 }}
                                                 showFilter={true}
                                                 filterLabel="City"
@@ -222,12 +227,13 @@ class EmployeeTab extends Component {
                                                 size={100}
                                                 sortBy="count"
                                                 defaultValue=""
+                                                queryFormat="or"
                                                 showCount={true}
                                                 placeholder="Single Dropdown List"
-                                                selectAllLabel="All Cities"
-                                                react={{
-                                                    and: ['CategoryFilter', 'SearchFilter'],
-                                                }}
+                                                selectAllLabel="All"
+                                                // react={{
+                                                //     and: ['SearchSensor', 'CitySensor','MultiCitySensor', 'PriceSensor' ]
+                                                // }}
                                                 showFilter={true}
                                                 filterLabel="City"
                                                 URLParams={false}
@@ -236,7 +242,7 @@ class EmployeeTab extends Component {
                                         </div>
                                     )}
                                 />
-                                 <FieldControl
+                                 {/* <FieldControl
                                 name="startDate"
                                 render={({ handler }) => (
                                     <div>
@@ -248,7 +254,7 @@ class EmployeeTab extends Component {
                                             queryFormat="date"
                                             placeholder="mm-dd-yyyy"
                                             defaultValue={null}
-                                            focused={true}
+                                            focused={false}
                                             numberOfMonths={1}
                                             showClear={true}
                                             clickUnselectsDay={true}
@@ -267,16 +273,16 @@ class EmployeeTab extends Component {
                                     && this.errorControls('startDate').errors.required) ? <p>This Field is required</p> : null}
                             </div>
 
-                            {/* <div>
+                             <div>
                                 {(this.loginForm.controls && this.errorControls['startDate']
                                     && this.errorControls['startDate'].errors
                                     && this.errorControls['startDate'].errors.notValidFormat) ?
                                     <p>Please enter mm-dd-yyyy</p> : null}
-                            </div>*/}
+                            </div>
                             <div>
                                 {this.dateErrorMessage ? <p>Enter Date lesser than End Date</p> : null}
-                            </div>  
-                            <FieldControl
+                            </div>   */}
+                            {/* <FieldControl
                                 name="endDate"
                                 render={({ handler }) => (
                                     <div>
@@ -288,7 +294,7 @@ class EmployeeTab extends Component {
                                             queryFormat="date"
                                             placeholder="mm-dd-yyyy"
                                             defaultValue={null}
-                                            focused={true}
+                                            focused={false}
                                             numberOfMonths={1}
                                             showClear={true}
                                             clickUnselectsDay={true}
@@ -307,7 +313,7 @@ class EmployeeTab extends Component {
                                     && this.loginForm.controls['endDate'].errors
                                     && this.loginForm.controls['endDate'].errors.required) ?
                                     <p>This Field is required</p> : null}
-                            </div>
+                            </div> */}
                             </form>
                         )}
                     />

@@ -52,15 +52,18 @@ class CustomeTabs extends Component {
         this.props.history.push('/center-content/a3/' + tab)
     }
     render() {
+        const style = {
+            marginBottom: '500px'
+        }
         return (
             <div>
                 <Tabs defaultActiveKey={this.state.tabs[0].id}
-                    mountOnEnter={true} // renders the component on domonly when it is true
+                    mountOnEnter={true} // renders the component on dom only when it is true
                     unmountOnExit={true} //unmounte from dom when it is true
                     transition={false}
                     id="noanim-tab-example"
                     onSelect={(index) => this.tabClick(index)}>
-                    {/*  Call this function
+                    {/*  Call this function in 2nd approach
                     {this.renderTabs()} */}
                     <Tab eventKey="home" title="Parent">
                         <ParentTab />
@@ -68,7 +71,7 @@ class CustomeTabs extends Component {
                     <Tab eventKey="profile" title="Student">
                         <StudentTab />
                     </Tab>
-                    <Tab eventKey="contact" title="Employee">
+                    <Tab eventKey="contact" title="Employee" style={style}>
                         <EmployeeTab />
                     </Tab>
                 </Tabs>

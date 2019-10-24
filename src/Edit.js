@@ -15,9 +15,9 @@ class Edit extends Component {
         console.log(this.props.match.params.id);
     }
 
-    componentWillMount() {
-        console.log('Will Mount called');
-    }
+    // componentWillMount() {
+    //     console.log('Will Mount called');
+    // }
 
     render() {
         console.log('Render called');

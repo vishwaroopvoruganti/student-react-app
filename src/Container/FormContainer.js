@@ -79,7 +79,6 @@ class FormContainer extends Component {
             if (params[k] !== "") {
                 finalParams = (finalParams === "?" ? finalParams : finalParams + "&") + k + "=" + params[k].toString();
             }
-           
         });
         return finalParams; 
     }

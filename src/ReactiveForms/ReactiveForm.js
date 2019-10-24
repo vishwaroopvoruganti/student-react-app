@@ -47,6 +47,8 @@ class ReactiveForm extends Component {
 
     });
 
+   
+
     componentDidMount() {
 
         if (this.props.formValues) {
@@ -253,8 +255,12 @@ class ReactiveForm extends Component {
 
     }
 
+    
+
+
     render() {
         return (
+            <div>
             <ReactiveBase
                 app="good-books-ds"
                 credentials="nY6NNTZZ6:27b76b9f-18ea-456c-bc5e-3a5263ebc63d"
@@ -286,8 +292,6 @@ class ReactiveForm extends Component {
                                     </div>
                                 )}
                             />
-
-
                             <FieldControl
                                 name="mtime"
                                 render={({ handler }) => (
@@ -312,7 +316,6 @@ class ReactiveForm extends Component {
                                     </div>
                                 )}
                             />
-
                             <div>
                                 {(this.loginForm.controls && this.errorControls('mtime')
                                     && this.errorControls('mtime').errors
@@ -353,23 +356,26 @@ class ReactiveForm extends Component {
                                     </div>
                                 )}
                             />
-
                             <div>
                                 {(this.loginForm.controls && this.loginForm.controls['endDate']
                                     && this.loginForm.controls['endDate'].errors
                                     && this.loginForm.controls['endDate'].errors.required) ?
                                     <p>This Field is required</p> : null}
                             </div>
-
-                           
-                                       
-
                             <button type="button" onClick={this.handleReset}> Reset </button>
                             <button type="submit">Submit</button>
                         </form>
                     )}
                 />
              </ReactiveBase>
+
+             
+
+
+
+                
+               
+             </div>
         );
     }
 }

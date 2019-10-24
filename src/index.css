@@ -24,3 +24,8 @@ code {
   cursor: pointer; /* Add a pointer on hover */
 
 }
+
+.field-error{
+  background-color:#F8DEDF;
+  border-color:#CD2126;
+}
