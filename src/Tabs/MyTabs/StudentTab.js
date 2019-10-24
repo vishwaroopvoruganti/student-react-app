@@ -66,7 +66,8 @@ class StudentTab extends Component {
                 this.setState({splCharacter: false});
             }
         } else {
-           // this.setState({splCharacter: false});
+            this.setState({splCharacter: false});
+            this.setState({ passwordStrength: false })
         }
     });
 
@@ -86,6 +87,9 @@ class StudentTab extends Component {
         this.state.confirmPasswordMatch) { //this will check if the form is valid or not.
                 this.setState({isFormSubmitted: false});
                 //From here we can do backend call.
+                this.setState({confirmPasswordMatch: false});
+                this.setState({splCharacter: false});
+                this.setState({ passwordStrength: false })
         }
         console.log(this.passwordResetForm.getRawValue());
     }
@@ -110,7 +114,7 @@ class StudentTab extends Component {
                             name="oldPassword"
                             render={PasswordInput}
                             meta={{ label: "oldPassword" }}
-                        />confirmPasswordMatch
+                        />
                         <div>
                             {(  this.passwordResetForm.controls 
                                 && this.passwordResetForm.controls['oldPassword']
