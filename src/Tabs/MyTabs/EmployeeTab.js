@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
     SingleDropdownList,
-   // CategorySearch,
+    // CategorySearch,
     MultiList,
     ReactiveBase,
     DataSearch,
@@ -19,12 +19,15 @@ import {
     FormGroup,
 } from "react-reactive-form";
 import { REACTIVE_SEARCH_FORM_VALUES } from '../store/actions';
+import CustomeQueryComponents from '../CustomeQueryComponents';
+import ReactiveComponent from '@appbaseio/reactivesearch/lib/components/basic/ReactiveComponent';
 
 class EmployeeTab extends Component {
     loginForm = FormGroup;
     constructor(props) {
         super(props);
         this.state = {
+            setQuery: ''
         }
     }
 
@@ -48,9 +51,7 @@ class EmployeeTab extends Component {
     componentDidMount() {
         console.log('Emp C');
         if (this.props.formValues) {
-
             this.patchValuesIntoForm(this.props.formValues);
-
         }
     }
 
@@ -74,7 +75,6 @@ class EmployeeTab extends Component {
     }
 
     sub6 = this.loginForm.valueChanges.subscribe(formData => {
-        console.log(this.loginForm);
         if ((this.loginForm.value.startDate || this.loginForm.value.endDate)) {
             this.loginForm.get('startDate').setValidators(Validators.compose([Validators.required]));
             this.loginForm.get('endDate').setValidators(Validators.compose([Validators.required]));
@@ -93,38 +93,48 @@ class EmployeeTab extends Component {
         this.props.updateFormValues(this.loginForm.getRawValue());
 
     });
+    customQ = function () {
+        console.log('Rendered');
+        return {
+            "query": {
+                "match_phrase_prefix": {
+                    "fieldName": {
+                        "query":
+                            "hello world",
+                        "max_expansions": 10
+                    }
+                }
+            }
+        }
+    }
+
+    myQuery() {
+        this.setState({ setQuery: 'query: {match: { original_publication_year: 2012 }}' })
+    }
 
     checkDateRange() {
 
         let isValid = true;
-
         this.dateErrorMessage = false;
         //console.log(this.loginForm.controls && this.loginForm.controls['startDate'] && this.loginForm.controls['startDate'].value);
-
         if (this.loginForm.controls['startDate'].value && this.loginForm.controls['endDate'].value &&
-
             this.loginForm.controls['startDate'].valid && this.loginForm.controls['endDate'].valid) {
-
             if (new Date(this.loginForm.get('startDate').value) >
-
                 new Date(this.loginForm.get('endDate').value)) {
-
                 isValid = false;
-
                 this.dateErrorMessage = true;
-
             };
-
         }
-
         return isValid;
-
     }
     render() {
         return (
             <div>
                 <ReactiveBase
                     app="products"
+                    transformRequest={props => ({ ...props, ...props.body = props.body + "[" + ["Custom1", "Custom2"] + "]" })}
+                    //.push({id:10, name:'Bhargav'})
+                    //...props.body=props.body+"["+this.state.agencies+"]"
                     url="http://localhost:9200">
                     <FieldGroup control={this.loginForm}
                         render={({ get, invalid }) => (
@@ -133,7 +143,7 @@ class EmployeeTab extends Component {
                                     name="ds"
                                     render={({ handler }) => (
                                         <div>
-                                            <DataSearch {...handler("DataSearch")}
+                                            <DataSearch {...handler("DataSearch") }
                                                 componentId="SearchSensor"
                                                 dataField={["name"]}
                                                 title="Data Search"
@@ -147,12 +157,14 @@ class EmployeeTab extends Component {
                                                 fuzziness={0}
                                                 debounce={100}
                                                 react={{
-                                                    and: ["CategoryFilter", "SearchFilter"]
+                                                    and: ["CategoryFilter", "SearchFilter", "CustomQuery"]
                                                 }}
+
                                                 showFilter={true}
                                                 filterLabel="Venue filter"
                                                 URLParams={false}
-                                                loader = {true}
+                                                loader={true}
+
                                             />
                                         </div>
                                     )}
@@ -163,14 +175,11 @@ class EmployeeTab extends Component {
                                         <div>
                                             <SingleList {...handler("SingleList") }
                                                 componentId="CitySensor"
-                                                dataField="in_stock"                                                
+                                                dataField="in_stock"
                                                 size={100}
                                                 sortBy="count"
                                                 title="S L"
                                                 defaultValue=""
-                                               
-                                              
-                
                                                 queryFormat="or"
                                                 selectAllLabel="All Cities"
                                                 showRadio={true}
@@ -178,7 +187,7 @@ class EmployeeTab extends Component {
                                                 showSearch={true}
                                                 placeholder="Single List"
                                                 react={{
-                                                    and: ['SearchSensor', 'CitySensor','MultiCitySensor', 'PriceSensor' ]
+                                                    and: ['SearchSensor', 'CitySensor', 'MultiCitySensor', 'PriceSensor', "CustomQuery"]
                                                 }}
                                                 showFilter={false}
                                                 filterLabel="City"
@@ -198,7 +207,7 @@ class EmployeeTab extends Component {
                                                 title="Multi List"
                                                 size={100}
                                                 sortBy="asc"
-                                                defaultValue={[]} 
+                                                defaultValue={[]}
                                                 queryFormat="or"
                                                 selectAllLabel="All Cities"
                                                 showCheckbox={true}
@@ -206,7 +215,7 @@ class EmployeeTab extends Component {
                                                 showSearch={true}
                                                 placeholder="Multi List"
                                                 react={{
-                                                    and: ['SearchSensor', 'CitySensor','MultiCitySensor', 'PriceSensor' ]
+                                                    and: ['SearchSensor', 'CitySensor', 'MultiCitySensor', 'PriceSensor']
                                                 }}
                                                 showFilter={true}
                                                 filterLabel="City"
@@ -231,9 +240,6 @@ class EmployeeTab extends Component {
                                                 showCount={true}
                                                 placeholder="Single Dropdown List"
                                                 selectAllLabel="All"
-                                                // react={{
-                                                //     and: ['SearchSensor', 'CitySensor','MultiCitySensor', 'PriceSensor' ]
-                                                // }}
                                                 showFilter={true}
                                                 filterLabel="City"
                                                 URLParams={false}
@@ -242,7 +248,16 @@ class EmployeeTab extends Component {
                                         </div>
                                     )}
                                 />
-                                 {/* <FieldControl
+
+                                <ReactiveComponent componentId="CustomQuery"
+                                    customQuery={this.customQ} />
+                                {/* <div >
+                                        <CustomeQueryComponents setQuery={this.setState({setQuery: 'query: {match: { original_publication_year: 2012 }}'})}
+                                           
+                                        />
+                                    </div> */}
+                                {/* </ReactiveComponent> */}
+                                {/* <FieldControl
                                 name="startDate"
                                 render={({ handler }) => (
                                     <div>
@@ -282,7 +297,7 @@ class EmployeeTab extends Component {
                             <div>
                                 {this.dateErrorMessage ? <p>Enter Date lesser than End Date</p> : null}
                             </div>   */}
-                            {/* <FieldControl
+                                {/* <FieldControl
                                 name="endDate"
                                 render={({ handler }) => (
                                     <div>

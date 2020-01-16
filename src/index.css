@@ -29,3 +29,6 @@ code {
   background-color:#F8DEDF;
   border-color:#CD2126;
 }
+.field-error-border {
+  border-color:#CD2126;
+}

@@ -27,6 +27,9 @@ class Header extends Component {
         <li>
           <Link to="/center-content"> Center Content Accordians </Link>
         </li>
+        <li>
+          <Link to="/college"> College </Link>
+        </li>
       </ul>
 
     )
