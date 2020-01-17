@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { LOADING, loginFormValues, loginStatus } from './store/actions';
 
 
 class Header extends Component {
   constructor(props) {
 
     super(props);
-   // console.log(this.props.loginFormValues);
+    // console.log(this.props.loginFormValues);
     this.state = {
     }
   }
@@ -19,14 +20,21 @@ class Header extends Component {
     //console.log(this.props.loginStatus);
   }
   componentDidUpdate() {
-   // console.log(this.props.loginStatus);
+    // console.log(this.props.loginStatus);
   }
   logout = () => {
+    this.props.loadSpinner(true);
     axios.post('el/logout', {}).then((resp) => {
-    //  console.log('Logout', resp);
-
+      //  console.log('Logout', resp);
+      this.props.loginFormDetails(null);
+      sessionStorage.setItem('authorization', null);
+      this.props.loginStatus(false);
+      this.props.loginFormDetails(null);
+      this.props.history.push('/login');
+      this.props.loadSpinner(false);
     }).catch(err => {
-    //  console.log('Logout Err', err);
+      this.props.loadSpinner(false);
+      //  console.log('Logout Err', err);
     })
   }
   render() {
@@ -38,23 +46,23 @@ class Header extends Component {
           <li>
             <Link to="/login" onClick={this.logout}> Log out </Link>
           </li>
-          <li>
+          {/* <li>
             <Link> loggedin as {this.props.loginFormValues.email}</Link>
-          </li>
+          </li> */}
         </div>
       );
     } else {
       logOutLink = (
         <div>
           <li>
-          <Link to="/login"> Log in </Link>
-        </li>
-        <li>
-          <Link to="/login"> Sign Up </Link>
-        </li>
+            <Link to="/login"> Log in </Link>
+          </li>
+          <li>
+            <Link to="/login"> Sign Up </Link>
+          </li>
         </div>
-        
-        
+
+
       );
     }
     return (
@@ -109,5 +117,13 @@ const mapStateToProps = state => {
   };
 };
 
+const dispatchStateToProps = dispatch => {
+  return {
+    loginFormDetails: (param) => dispatch(loginFormValues(param)),
+    loginSucessfull: (param) => dispatch(loginStatus(param)),
+    loadSpinner: (param) => dispatch({ type: LOADING, value: param }),
+  };
+};
 
-export default connect(mapStateToProps)(Header);
+
+export default connect(mapStateToProps, dispatchStateToProps)(Header);

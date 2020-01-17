@@ -26,7 +26,7 @@ function formValues(state, action){
 function mainLoginForm(state, action){
     const newState = state;
     newState.loginFormValues = action.value;
-  //  console.log(newState.loginFormValues);
+    console.log('Form Values Null',newState.loginFormValues);
     return tassign(state,newState);
 }
 

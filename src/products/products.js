@@ -12,7 +12,7 @@ class Products extends Component {
       }
     }
     componentDidMount() {
-        debugger;
+        //debugger;
         axios.get('getAllProducts').then(response =>{
          //   console.log(response);
         }).catch(error => {

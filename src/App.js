@@ -6,7 +6,7 @@ import Header from './Header.js'
 import asyncComponent from './hoc/asyncComponent';
 import Edit from './Edit.js';
 import { connect } from 'react-redux';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import loader from './assets/loader.gif'
 import Employee from './Employee/Employee.js';
 import { LOADING } from './store/actions';
@@ -65,7 +65,8 @@ class App extends Component {
                             
                   src={loader} />
               </div> : null}
-            <Route exact path='/' ></Route>
+            {/* <Route exact path='/' ></Route> */}
+            <Redirect exact from="/login" to="Login" />
             {/* Advanced way to implement lazy loading */}
             {/* see how to pass function from the fallback */}
             <Route path='/student' render={() => (
@@ -97,7 +98,7 @@ class App extends Component {
             )}
             /> */}
             
-    <button type="button" onClick={this.initializeReactGA}> Reset </button>
+    {/* <button type="button" onClick={this.initializeReactGA}> Reset </button> */}
           </div>
         </React.Fragment>
       </BrowserRouter>

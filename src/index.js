@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:2000/api/';
-debugger;
+//debugger;
 //if(sessionStorage.getItem('authorization')){
     //axios.defaults.headers.common['authorization'] = sessionStorage.getItem('authorization')
     //? sessionStorage.getItem('authorization'):null;

@@ -20,10 +20,12 @@ class Login extends Component {
     }
     componentDidMount() {
         if (this.props.loginFormValues) {
-            this.patchValuesIntoForm(this.props.loginFormValues);
+            //this.patchValuesIntoForm(this.props.loginFormValues);
         }
     }
     patchValuesIntoForm(formValues) {
+        console.log('Patch Values', formValues);
+        debugger;
         this.loginForm.patchValue({
             email: formValues.email,
             password: formValues.password,
@@ -34,20 +36,24 @@ class Login extends Component {
 
         e.preventDefault();
         this.props.loadSpinner(true);
-        axios.post('el/login', 
-                    this.loginForm.getRawValue())
+        axios.post('el/login',
+            this.loginForm.getRawValue())
             .then(response => {
-              //  console.log(response);
+                //  console.log(response);
                 sessionStorage.setItem('authorization', response.data.token);
                 this.props.loginFormDetails(this.loginForm.getRawValue());
                 this.props.loginSucessfull(true);
-                this.props.history.push('/products');   
-                this.props.loadSpinner(false);            
-                
-
-            }).catch(error => {
-               // console.log(error);
-            })   
+                this.props.history.push('/products');
+                this.props.loadSpinner(false);
+            }
+            // , err => {
+            //     console.log('UI MSG LOG IN FAILED');
+            //     this.props.loadSpinner(false);
+            // }
+        ).catch(error => {
+                this.props.loadSpinner(false);
+                 console.log(error.message);
+            })
     }
 
     handleReset = (e) => {
