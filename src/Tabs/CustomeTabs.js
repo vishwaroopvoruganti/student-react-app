@@ -20,11 +20,11 @@ class CustomeTabs extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
+        //console.log(this.props);
     }
 
     componentWillUnmount() {
-        console.log('destroyed');
+        //console.log('destroyed');
     }
 
     //With this approach i tried to render tabs in a dynamic way but I got nested routing 
@@ -48,7 +48,7 @@ class CustomeTabs extends Component {
     //     })
     // }
     tabClick(tab) {
-        console.log('/center-content/a3/' + tab);
+       // console.log('/center-content/a3/' + tab);
         this.props.history.push('/center-content/a3/' + tab)
     }
     render() {

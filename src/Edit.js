@@ -10,9 +10,9 @@ class Edit extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
-        console.log('Did Mount called');
-        console.log(this.props.match.params.id);
+        // console.log(this.props);
+        // console.log('Did Mount called');
+        // console.log(this.props.match.params.id);
     }
 
     // componentWillMount() {
@@ -20,7 +20,7 @@ class Edit extends Component {
     // }
 
     render() {
-        console.log('Render called');
+      //  console.log('Render called');
 
         return (
             <div>Edit Page working</div>

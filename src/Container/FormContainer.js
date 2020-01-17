@@ -37,7 +37,7 @@ class FormContainer extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
+       // console.log(this.props);
     }
 
     submitForm() {
@@ -51,7 +51,7 @@ class FormContainer extends Component {
                 this.props.updateSearchResults(response.data.hits);
                 this.props.loadSpinner(false);
             }).catch(error => {
-                console.log(error);
+            //    console.log(error);
             })
     }
 
@@ -87,7 +87,7 @@ class FormContainer extends Component {
         e.preventDefault();
         let value = e.target.value;
         let name = e.target.name;
-        console.log(value);
+        //console.log(value);
         // this.setState(prevState => ({
         //     user:
         //         { ...prevState.user, [name]: value }

@@ -20,11 +20,11 @@ class ParentTab extends Component {
 
     componentDidMount() {
         //   console.log(this.props);
-           console.log('Parent Created');
+        //   console.log('Parent Created');
        }
 
     componentWillUnmount() {
-        console.log('Parent destroyed');
+      //  console.log('Parent destroyed');
     }
 
     render(){

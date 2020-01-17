@@ -3,3 +3,5 @@ export const DECREMENT = 'DECREMENT';
 export const SEARCH_RESULTS = 'SEARCH_RESULTS';
 
 export const DATA_TO_UPDATE = 'DATA_TO_UPDATE';
+export const MAIN_LOGIN_FORM = 'MAIN_LOGIN_FORM';
+export const LOGIN_STATUS = 'LOGIN_STATUS';

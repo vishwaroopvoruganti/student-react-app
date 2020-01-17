@@ -53,7 +53,7 @@ class ReactiveForm extends Component {
         });
     }
     componentWillUnmount() {
-        console.log('Reactive destroyed');
+     //   console.log('Reactive destroyed');
     }
 
     errorControls(controlName) {
@@ -63,7 +63,7 @@ class ReactiveForm extends Component {
 
 
     sub7 = this.loginForm.valueChanges.subscribe(data => {
-        console.log('Field changes');
+       // console.log('Field changes');
     });
 
     sub6 = this.loginForm.valueChanges.subscribe(formData => {
@@ -138,7 +138,7 @@ class ReactiveForm extends Component {
     });
 
     sub7 = this.loginForm.get('mtime').valueChanges.subscribe(data => {
-        console.log(this.loginForm.get('mtime').value);
+      //  console.log(this.loginForm.get('mtime').value);
     });
 
     numberOnlyValidator(control) {
@@ -156,8 +156,8 @@ class ReactiveForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Form values", this.loginForm.getRawValue());
-        console.log("Form Obj", this.loginForm);
+        // console.log("Form values", this.loginForm.getRawValue());
+        // console.log("Form Obj", this.loginForm);
         this.props.updateFormValues(this.loginForm.getRawValue());
     }
 

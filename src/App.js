@@ -12,12 +12,14 @@ import Employee from './Employee/Employee.js';
 import { LOADING } from './store/actions';
 import CustomeTabs from './Tabs/CustomeTabs';
 import Student from './College/Student';
+import Login from './login';
+import Products from './products/products';
 
 const asyncReactiveForms = asyncComponent(() => {
   return import('./ReactiveForms/ReactiveForm');
 });
 function initializeReactGA() {
-  console.log('Analytics');
+ // console.log('Analytics');
   ReactGA.initialize("UA-155426348-1");
   ReactGA.pageview('/');
   //ReactGA.pageview(window.location.pathname+window.location.search);
@@ -35,7 +37,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
+  //  console.log(this.props);
   }
 
   handleReset = (e) => {
@@ -73,6 +75,9 @@ class App extends Component {
               )}
             />
             <Route exact path='/editStudent/:id' component={Edit}></Route>
+            <Route exact path='/login' component={Login}></Route>
+            <Route exact path='/products' component={Products}></Route>
+
             <Route exact path='/emp' component={Employee}></Route>
             {/* Old way to implement lazy routing usin hoc */}
             <Route exact path='/form' component={asyncReactiveForms}></Route>

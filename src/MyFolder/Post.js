@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Post extends Component {
 
 componentWillUnmount() {
-    console.log('Post destroyed');
+ //   console.log('Post destroyed');
 }
 render(){
     return(

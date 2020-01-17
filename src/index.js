@@ -7,7 +7,22 @@ import * as serviceWorker from './serviceWorker';
 import {Provider} from 'react-redux';
 import { rootReducer } from './store';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 
+axios.defaults.baseURL = 'http://localhost:2000/api/';
+debugger;
+//if(sessionStorage.getItem('authorization')){
+    //axios.defaults.headers.common['authorization'] = sessionStorage.getItem('authorization')
+    //? sessionStorage.getItem('authorization'):null;
+//} else {
+    //axios.defaults.headers['authorization'] = null;
+//}
+
+axios.interceptors.request.use(req => {
+   // console.log(req);
+    req.headers.authorization =sessionStorage.getItem('authorization');
+    return req;
+});
 //setting up redux devtools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

@@ -20,15 +20,15 @@ export class ResultContainer extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
+    //    console.log(this.props);
     }
 
     componentWillUnmount() {
-        console.log('destroyed');
+    //    console.log('destroyed');
     }
     clickAcc = (id) => {
-        console.log(id + 'Acc clicked');
-        console.log(this.props);
+     //   console.log(id + 'Acc clicked');
+     //   console.log(this.props);
         this.setState({ accordianId: id });
     }
 

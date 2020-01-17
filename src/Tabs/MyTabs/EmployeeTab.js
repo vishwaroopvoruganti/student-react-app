@@ -44,12 +44,12 @@ class EmployeeTab extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.loginForm);
+     //   console.log(this.loginForm);
         this.props.updateFormValues(this.loginForm.getRawValue());
     }
 
     componentDidMount() {
-        console.log('Emp C');
+    //    console.log('Emp C');
         if (this.props.formValues) {
             this.patchValuesIntoForm(this.props.formValues);
         }
@@ -71,7 +71,7 @@ class EmployeeTab extends Component {
     }
 
     componentWillUnmount() {
-        console.log('Emp destroyed');
+    //    console.log('Emp destroyed');
     }
 
     sub6 = this.loginForm.valueChanges.subscribe(formData => {
@@ -89,12 +89,12 @@ class EmployeeTab extends Component {
             this.loginForm.get('endDate').updateValueAndValidity({ emitEvent: false });
         }
         this.checkDateRange();
-        console.log('Hello');
+      //  console.log('Hello');
         this.props.updateFormValues(this.loginForm.getRawValue());
 
     });
     customQ = function () {
-        console.log('Rendered');
+     //   console.log('Rendered');
         return {
             "query": {
                 "match_phrase_prefix": {

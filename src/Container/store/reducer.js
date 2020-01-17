@@ -15,7 +15,7 @@ function searchResults(state, action) {
 function updateRecord(state, action) {
     var newState = state;
     newState.updateValues = action.value;
-    console.log(newState.updateValues);
+   // console.log(newState.updateValues);
     return tassign(state,newState);
 }
 

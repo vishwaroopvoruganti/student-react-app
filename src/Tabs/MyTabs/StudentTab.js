@@ -117,14 +117,14 @@ class StudentTab extends Component {
     }
 
     render() {
-        console.log(this.state.isFormSubmitted);
+       // console.log(this.state.isFormSubmitted);
         const { isFormSubmitted } = this.state;
         const condition = this.passwordResetForm.controls && 
                             this.passwordResetForm.controls['newPassword'] && 
                             this.passwordResetForm.controls['newPassword'].errors && 
                             this.passwordResetForm.controls['newPassword'].errors.required && 
                             this.isFormSubmitted
-        console.log(condition);
+       // console.log(condition);
                
 
         return (
