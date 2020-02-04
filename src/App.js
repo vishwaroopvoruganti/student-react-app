@@ -19,7 +19,7 @@ const asyncReactiveForms = asyncComponent(() => {
   return import('./ReactiveForms/ReactiveForm');
 });
 function initializeReactGA() {
- // console.log('Analytics');
+  // console.log('Analytics');
   ReactGA.initialize("UA-155426348-1");
   ReactGA.pageview('/');
   //ReactGA.pageview(window.location.pathname+window.location.search);
@@ -37,32 +37,32 @@ class App extends Component {
   }
 
   componentDidMount() {
-  //  console.log(this.props);
+    //  console.log(this.props);
   }
 
   handleReset = (e) => {
-    
+
     this.loginForm.reset();
-}
+  }
 
   render() {
     return (
-      
+
       <BrowserRouter >
         <React.Fragment>
           <div className="App">
             <Header />
             {this.props.loading ?
               <div className="comp-overlay">
-                <img  alt="description"
-                      style={{ 
-                              marginTop: 300, 
-                              marginBottom: 10, 
-                              marginLeft: 40, 
-                              marginRight: 40, 
-                              height: 100 
-                            }}
-                            
+                <img alt="description"
+                  style={{
+                    marginTop: 300,
+                    marginBottom: 10,
+                    marginLeft: 40,
+                    marginRight: 40,
+                    height: 100
+                  }}
+
                   src={loader} />
               </div> : null}
             {/* <Route exact path='/' ></Route> */}
@@ -73,7 +73,7 @@ class App extends Component {
               <Suspense fallback={<div>Loading...</div>}>
                 <FormContainer />
               </Suspense>
-              )}
+            )}
             />
             <Route exact path='/editStudent/:id' component={Edit}></Route>
             <Route exact path='/login' component={Login}></Route>
@@ -87,9 +87,9 @@ class App extends Component {
               <Suspense fallback={<div>Loading...</div>}>
                 <CenterContent />
               </Suspense>
-              )}
+            )}
             />
-            
+
             <Route exact path='/college' component={Student}></Route>
             {/* <Route path='/college' render={() => (
               <Suspense fallback={<div>Loading...</div>}>
@@ -97,8 +97,8 @@ class App extends Component {
               </Suspense>
             )}
             /> */}
-            
-    {/* <button type="button" onClick={this.initializeReactGA}> Reset </button> */}
+
+            {/* <button type="button" onClick={this.initializeReactGA}> Reset </button> */}
           </div>
         </React.Fragment>
       </BrowserRouter>
@@ -117,7 +117,7 @@ const dispatchStateToProps = dispatch => {
   return {
     //loadSpinner: (param) => dispatch({type: LOGIN_FORM_VALUES, value: param})
     // updateSearchResults: (param) => dispatch(searchResults(param)),
-      loadSpinner: (param) => dispatch({ type: LOADING, value: param })
+    loadSpinner: (param) => dispatch({ type: LOADING, value: param })
   };
 };
 

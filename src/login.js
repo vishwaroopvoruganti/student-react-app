@@ -25,7 +25,6 @@ class Login extends Component {
     }
     patchValuesIntoForm(formValues) {
         console.log('Patch Values', formValues);
-        debugger;
         this.loginForm.patchValue({
             email: formValues.email,
             password: formValues.password,
@@ -50,9 +49,9 @@ class Login extends Component {
             //     console.log('UI MSG LOG IN FAILED');
             //     this.props.loadSpinner(false);
             // }
-        ).catch(error => {
+            ).catch(error => {
                 this.props.loadSpinner(false);
-                 console.log(error.message);
+                console.log(error.message);
             })
     }
 

@@ -12,7 +12,7 @@ const TextInput = ({ handler, touched, hasError, meta }) => (
 )
 const PasswordInput = ({ handler, touched, hasError, meta }) => (
     <div>
-        <input className={hasError && touched ?"field-error-border": ""} type="password" {...handler() } />
+        <input className={hasError && touched ? "field-error-border" : ""} type="password" {...handler() } />
     </div>
 )
 class StudentTab extends Component {
@@ -60,45 +60,47 @@ class StudentTab extends Component {
                 this.setState({ passwordStrength: false })
             }
             let splReg = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
-            if(splReg.test(this.passwordResetForm.get('newPassword').value)){
-                this.setState({splCharacter: true});
+            if (splReg.test(this.passwordResetForm.get('newPassword').value)) {
+                this.setState({ splCharacter: true });
             } else {
-                this.setState({splCharacter: false});
+                this.setState({ splCharacter: false });
             }
         } else {
-            this.setState({splCharacter: false});
+            this.setState({ splCharacter: false });
             this.setState({ passwordStrength: false })
         }
     });
 
 
     submitForm = (e) => {
-       // debugger;
-       e.preventDefault();
-       
+        // debugger;
+        e.preventDefault();
+
         //console.log(this.state.isFormSubmitted);
-        if(this.passwordResetForm.get('newPassword').value === this.passwordResetForm.get('confirmNewPassword').value) {
-            this.setState({confirmPasswordMatch: true});
+        if (this.passwordResetForm.get('newPassword').value === this.passwordResetForm.get('confirmNewPassword').value) {
+            this.setState({ confirmPasswordMatch: true });
         } else {
-            this.setState({confirmPasswordMatch: false});
+            this.setState({ confirmPasswordMatch: false });
         }
-     
-       // this.setState({isFormSubmitted: true});
+
+        // this.setState({isFormSubmitted: true});
         if (this.passwordResetForm.valid &&
             this.checkPasswordIsEqual() &&
             this.state.passwordStrength &&
-        this.state.confirmPasswordMatch) { //this will check if the form is valid or not.
-                this.setState({isFormSubmitted: false, confirmPasswordMatch: false,
-                    splCharacter: false, passwordStrength: false});
-                //From here we can do backend call.
-                //this.setState({confirmPasswordMatch: false});
-               // this.setState({splCharacter: false});
-              //  this.setState({ passwordStrength: false })
+            this.state.confirmPasswordMatch) { //this will check if the form is valid or not.
+            this.setState({
+                isFormSubmitted: false, confirmPasswordMatch: false,
+                splCharacter: false, passwordStrength: false
+            });
+            //From here we can do backend call.
+            //this.setState({confirmPasswordMatch: false});
+            // this.setState({splCharacter: false});
+            //  this.setState({ passwordStrength: false })
         }
-       
+
         // console.log(this.state.isFormSubmitted);
-         //this.setState({isFormSubmitted: true});
-         this.isFormSubmitted = true;
+        //this.setState({isFormSubmitted: true});
+        this.isFormSubmitted = true;
         // console.log(this.passwordResetForm.getRawValue());
 
     }
@@ -117,15 +119,15 @@ class StudentTab extends Component {
     }
 
     render() {
-       // console.log(this.state.isFormSubmitted);
+        // console.log(this.state.isFormSubmitted);
         const { isFormSubmitted } = this.state;
-        const condition = this.passwordResetForm.controls && 
-                            this.passwordResetForm.controls['newPassword'] && 
-                            this.passwordResetForm.controls['newPassword'].errors && 
-                            this.passwordResetForm.controls['newPassword'].errors.required && 
-                            this.isFormSubmitted
-       // console.log(condition);
-               
+        const condition = this.passwordResetForm.controls &&
+            this.passwordResetForm.controls['newPassword'] &&
+            this.passwordResetForm.controls['newPassword'].errors &&
+            this.passwordResetForm.controls['newPassword'].errors.required &&
+            this.isFormSubmitted
+        // console.log(condition);
+
 
         return (
             <div><FieldGroup control={this.passwordResetForm}
@@ -137,15 +139,15 @@ class StudentTab extends Component {
                             meta={{ label: "oldPassword" }}
                         />
                         <div className="field-error">
-                            {(  this.passwordResetForm.controls 
+                            {(this.passwordResetForm.controls
                                 && this.passwordResetForm.controls['oldPassword']
                                 && this.passwordResetForm.controls['oldPassword'].errors
-                                && this.passwordResetForm.controls['oldPassword'].errors.required 
-                                ) ?
+                                && this.passwordResetForm.controls['oldPassword'].errors.required
+                            ) ?
                                 <p>This Field is required</p> : <p>Test</p>}
                         </div>
                         <FieldControl
-                        
+
                             name="newPassword"
                             render={PasswordInput}
                             meta={{ label: "newPassword" }}
@@ -161,7 +163,7 @@ class StudentTab extends Component {
                             {this.isPasswordEqual ? <p>New Password cannot be same as old password</p> : null}
                         </div>
                         <div className="field-error">
-                            {this.state.splCharacter && !this.state.passwordStrength? <p>Special Char</p> : null}
+                            {this.state.splCharacter && !this.state.passwordStrength ? <p>Special Char</p> : null}
                         </div>
                         <FieldControl
                             name="confirmNewPassword"
@@ -169,15 +171,15 @@ class StudentTab extends Component {
                             meta={{ label: "confirmNewPassword" }}
                         />
                         <div>
-                            {(  this.passwordResetForm.controls 
+                            {(this.passwordResetForm.controls
                                 && this.passwordResetForm.controls['confirmNewPassword']
                                 && this.passwordResetForm.controls['confirmNewPassword'].errors
-                                && this.passwordResetForm.controls['confirmNewPassword'].errors.required 
+                                && this.passwordResetForm.controls['confirmNewPassword'].errors.required
                                 && isFormSubmitted) ?
                                 <p>This Field is required</p> : null}
                         </div>
                         <div className="field-error">
-                            {this.state.confirmPasswordMatch  ?<p>Password and Confirm Password should be same</p> : null}
+                            {this.state.confirmPasswordMatch ? <p>Password and Confirm Password should be same</p> : null}
                         </div>
                         <button type="submit">Submit</button>
                     </form>

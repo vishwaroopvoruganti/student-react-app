@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 class ResultContainer extends Component {
 
 
-   
-  
+
+
     renderStudentData() {
         return this.props.data.map((student, index) => {
             const { title, url, author } = student
             return (
                 // <Link to={'/editStudent/'+ author}>
-                <tr key={author} onClick={() =>this.props.handleUpdateData(student)}>
+                <tr key={author} onClick={() => this.props.handleUpdateData(student)}>
                     <td>{title}</td>
                     <td>{url}</td>
                     <td>{author}</td>
@@ -18,17 +18,17 @@ class ResultContainer extends Component {
             )
         })
     }
-    render(){
-        if(this.props.data.length === 0){
+    render() {
+        if (this.props.data.length === 0) {
             return (
                 <div>No Results to Display</div>
             );
         }
-         return (
-           
+        return (
+
             <div>
                 <h1>Records to Display</h1>
-                    <table>
+                <table>
                     <tbody>
                         <tr>
                             <th>Title</th>
@@ -41,9 +41,9 @@ class ResultContainer extends Component {
                     </tbody>
                 </table>
             </div>
-            )
+        )
     }
-       
+
 
 }
 export default ResultContainer;

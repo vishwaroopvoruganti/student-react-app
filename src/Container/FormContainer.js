@@ -32,17 +32,17 @@ class FormContainer extends Component {
 
 
     handleRowClick(student) {
-       this.props.history.replace({ pathname: '/editStudent/' + student.author });
-       this.props.dataToEdit(student);
+        this.props.history.replace({ pathname: '/editStudent/' + student.author });
+        this.props.dataToEdit(student);
     }
 
     componentDidMount() {
-       // console.log(this.props);
+        // console.log(this.props);
     }
 
     submitForm() {
-     //   let formvalues = this.state.user;
-     //  let queryParams = this.paramsStringify(formvalues);
+        //   let formvalues = this.state.user;
+        //  let queryParams = this.paramsStringify(formvalues);
     }
     handleStudentSearchClick() {
         this.props.loadSpinner(true);
@@ -51,12 +51,12 @@ class FormContainer extends Component {
                 this.props.updateSearchResults(response.data.hits);
                 this.props.loadSpinner(false);
             }).catch(error => {
-            //    console.log(error);
+                //    console.log(error);
             })
     }
 
-    dateChange(e){
-       
+    dateChange(e) {
+
     }
 
     handleChange = event => {
@@ -80,7 +80,7 @@ class FormContainer extends Component {
                 finalParams = (finalParams === "?" ? finalParams : finalParams + "&") + k + "=" + params[k].toString();
             }
         });
-        return finalParams; 
+        return finalParams;
     }
 
     handleInputChange(e) {
@@ -148,29 +148,29 @@ class FormContainer extends Component {
                         action={this.submitForm}
                     />
                 </form>
-                
+
                 <ReactiveBase
-				app="products"
-				url="https://7ab8585e157940e48315591a8b8e1344.us-east-1.aws.found.io:9243"
-				//ype="listing"
-			>
-                  <DatePicker
-  componentId="DateSensor"
-  dataField="mtime"
-  title="DatePicker"
-  defaultValue="01-04-2018"
-  focused={true}
-  numberOfMonths={1}
-  queryFormat="date"
-  placeholder="mm-dd-yyyy"
-  showClear={true}
-  clickUnselectsDay={true}
-  showFilter={true}
-  filterLabel="Date"
-  URLParams={false}
-  onChange={this.dateChange}
-/>  
-</ReactiveBase>
+                    app="products"
+                    url="https://7ab8585e157940e48315591a8b8e1344.us-east-1.aws.found.io:9243"
+                //ype="listing"
+                >
+                    <DatePicker
+                        componentId="DateSensor"
+                        dataField="mtime"
+                        title="DatePicker"
+                        defaultValue="01-04-2018"
+                        focused={true}
+                        numberOfMonths={1}
+                        queryFormat="date"
+                        placeholder="mm-dd-yyyy"
+                        showClear={true}
+                        clickUnselectsDay={true}
+                        showFilter={true}
+                        filterLabel="Date"
+                        URLParams={false}
+                        onChange={this.dateChange}
+                    />
+                </ReactiveBase>
                 <ResultContainer
                     data={this.props.studentsList}
                     handleUpdateData={this.handleRowClick} />
@@ -194,7 +194,7 @@ const dispatchStateToProps = dispatch => {
 
         updateSearchResults: (param) => dispatch(searchResults(param)),
         loadSpinner: (param) => dispatch({ type: LOADING, value: param }),
-        dataToEdit: (param) => dispatch({type: DATA_TO_UPDATE, value: param})
+        dataToEdit: (param) => dispatch({ type: DATA_TO_UPDATE, value: param })
     };
 };
 

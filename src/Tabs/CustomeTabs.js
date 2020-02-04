@@ -48,7 +48,7 @@ class CustomeTabs extends Component {
     //     })
     // }
     tabClick(tab) {
-       // console.log('/center-content/a3/' + tab);
+        // console.log('/center-content/a3/' + tab);
         this.props.history.push('/center-content/a3/' + tab)
     }
     render() {

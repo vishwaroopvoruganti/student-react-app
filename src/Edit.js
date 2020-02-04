@@ -20,7 +20,7 @@ class Edit extends Component {
     // }
 
     render() {
-      //  console.log('Render called');
+        //  console.log('Render called');
 
         return (
             <div>Edit Page working</div>
@@ -30,7 +30,7 @@ class Edit extends Component {
 }
 const mapStateToProps = state => {
     return {
-        
+
         studentData: state.student.updateValues,
     };
 };

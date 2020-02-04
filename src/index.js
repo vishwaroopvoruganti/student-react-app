@@ -21,8 +21,14 @@ axios.defaults.baseURL = 'http://localhost:2000/api/';
 axios.interceptors.request.use(req => {
    // console.log(req);
     req.headers.authorization =sessionStorage.getItem('authorization');
+    console.log(req);
     return req;
 });
+axios.interceptors.response.use(res => {
+    console.log(res);
+     //req.headers.authorization =sessionStorage.getItem('authorization');
+     return res;
+ });
 //setting up redux devtools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

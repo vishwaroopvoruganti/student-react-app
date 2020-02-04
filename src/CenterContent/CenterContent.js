@@ -20,15 +20,15 @@ export class ResultContainer extends Component {
     }
 
     componentDidMount() {
-    //    console.log(this.props);
+        //    console.log(this.props);
     }
 
     componentWillUnmount() {
-    //    console.log('destroyed');
+        //    console.log('destroyed');
     }
     clickAcc = (id) => {
-     //   console.log(id + 'Acc clicked');
-     //   console.log(this.props);
+        //   console.log(id + 'Acc clicked');
+        //   console.log(this.props);
         this.setState({ accordianId: id });
     }
 
@@ -38,10 +38,10 @@ export class ResultContainer extends Component {
             return (
                 //Based on routing we will display accordians
                 <Route key={id} render={({ history }) => (
-                    <Card key={id} style={{ 
-                        marginBottom: 10, 
-                     }}
-                          onClick={() => { history.push('/center-content/' + id) }}>
+                    <Card key={id} style={{
+                        marginBottom: 10,
+                    }}
+                        onClick={() => { history.push('/center-content/' + id) }}>
                         <Accordion.Toggle as={Card.Header} eventKey={id}>
                             {name}
                         </Accordion.Toggle>

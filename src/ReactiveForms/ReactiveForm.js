@@ -53,7 +53,7 @@ class ReactiveForm extends Component {
         });
     }
     componentWillUnmount() {
-     //   console.log('Reactive destroyed');
+        //   console.log('Reactive destroyed');
     }
 
     errorControls(controlName) {
@@ -63,7 +63,7 @@ class ReactiveForm extends Component {
 
 
     sub7 = this.loginForm.valueChanges.subscribe(data => {
-       // console.log('Field changes');
+        // console.log('Field changes');
     });
 
     sub6 = this.loginForm.valueChanges.subscribe(formData => {
@@ -138,7 +138,7 @@ class ReactiveForm extends Component {
     });
 
     sub7 = this.loginForm.get('mtime').valueChanges.subscribe(data => {
-      //  console.log(this.loginForm.get('mtime').value);
+        //  console.log(this.loginForm.get('mtime').value);
     });
 
     numberOnlyValidator(control) {
@@ -161,118 +161,118 @@ class ReactiveForm extends Component {
         this.props.updateFormValues(this.loginForm.getRawValue());
     }
 
-    
+
 
 
     render() {
         return (
             <div>
-            <ReactiveBase
-                app="good-books-ds"
-                credentials="nY6NNTZZ6:27b76b9f-18ea-456c-bc5e-3a5263ebc63d"
-                type="listing">
-                <FieldGroup control={this.loginForm}
-                    render={({ get, invalid }) => (
-                        <form onSubmit={this.handleSubmit}>
-                            <FieldControl
-                                name="username"
-                                render={TextInput}
-                                meta={{ label: "Username" }}
-                            />
-                            <div>
-                                {(this.loginForm.controls && this.loginForm.controls['username']
-                                    && this.loginForm.controls['username'].errors
-                                    && this.loginForm.controls['username'].errors.notnumber) ?
-                                    <p>Please enter proper format</p> : null}
-                            </div>
-                            <FieldControl
-                                name="password"
-                                render={TextInput}
-                                meta={{ label: "Password" }}
-                            />
-                            <FieldControl
-                                name="rememberMe"
-                                render={({ handler }) => (
-                                    <div>
-                                        <input {...handler("checkbox") } />
-                                    </div>
-                                )}
-                            />
-                            <FieldControl
-                                name="mtime"
-                                render={({ handler }) => (
-                                    <div>
-                                        <DatePicker {...handler("DatePicker") }
-                                            dataField="mtime"
-                                            meta={{ label: Date }}
-                                            componentId="DateSensor"
-                                            title="DatePickerC"
-                                            queryFormat="date"
-                                            placeholder="mm-dd-yyyy"
-                                            defaultValue={null}
-                                            focused={true}
-                                            numberOfMonths={1}
-                                            showClear={true}
-                                            clickUnselectsDay={true}
-                                            showFilter={true}
-                                            filterLabel="Date"
-                                            URLParams={false}
-                                        //  value = {this.errorControls && this.errorControls['mtime'].value !=== ''? this.errorControls['mtime'].value : null}
-                                        />
-                                    </div>
-                                )}
-                            />
-                            <div>
-                                {(this.loginForm.controls && this.errorControls('mtime')
-                                    && this.errorControls('mtime').errors
-                                    && this.errorControls('mtime').errors.required) ? <p>This Field is required</p> : null}
-                            </div>
-                            <div>
-                                {(this.loginForm.controls && this.errorControls['mtime']
-                                    && this.errorControls['mtime'].errors
-                                    && this.errorControls['mtime'].errors.notValidFormat) ?
-                                    <p>Please enter mm-dd-yyyy</p> : null}
-                            </div>
-                            <div>
-                                {this.dateErrorMessage ? <p>Enter Date lesser than End Date</p> : null}
-                            </div>
-                            <FieldControl
-                                name="endDate"
-                                render={({ handler }) => (
-                                    <div>
-                                        <DatePicker {...handler("DatePicker") }
-                                            dataField="endDate"
-                                            meta={{ label: Date }}
-                                            componentId="endDateSensor"
-                                            title="endDatePicker"
-                                            queryFormat="date"
-                                            placeholder="mm-dd-yyyy"
-                                            defaultValue={null}
-                                            focused={true}
-                                            numberOfMonths={1}
-                                            showClear={true}
-                                            clickUnselectsDay={true}
-                                            showFilter={true}
-                                            filterLabel="Date"
-                                            URLParams={false}
-                                        // value = {this.loginForm.controls && this.loginForm.controls['endDate'].value !=== ''? this.loginForm.controls['endDate'].value : null}
-                                        />
-                                    </div>
-                                )}
-                            />
-                            <div>
-                                {(this.loginForm.controls && this.loginForm.controls['endDate']
-                                    && this.loginForm.controls['endDate'].errors
-                                    && this.loginForm.controls['endDate'].errors.required) ?
-                                    <p>This Field is required</p> : null}
-                            </div>
-                            <button type="button" onClick={this.handleReset}> Reset </button>
-                            <button type="submit">Submit</button>
-                        </form>
-                    )}
-                />
-             </ReactiveBase>
-             </div>
+                <ReactiveBase
+                    app="good-books-ds"
+                    credentials="nY6NNTZZ6:27b76b9f-18ea-456c-bc5e-3a5263ebc63d"
+                    type="listing">
+                    <FieldGroup control={this.loginForm}
+                        render={({ get, invalid }) => (
+                            <form onSubmit={this.handleSubmit}>
+                                <FieldControl
+                                    name="username"
+                                    render={TextInput}
+                                    meta={{ label: "Username" }}
+                                />
+                                <div>
+                                    {(this.loginForm.controls && this.loginForm.controls['username']
+                                        && this.loginForm.controls['username'].errors
+                                        && this.loginForm.controls['username'].errors.notnumber) ?
+                                        <p>Please enter proper format</p> : null}
+                                </div>
+                                <FieldControl
+                                    name="password"
+                                    render={TextInput}
+                                    meta={{ label: "Password" }}
+                                />
+                                <FieldControl
+                                    name="rememberMe"
+                                    render={({ handler }) => (
+                                        <div>
+                                            <input {...handler("checkbox") } />
+                                        </div>
+                                    )}
+                                />
+                                <FieldControl
+                                    name="mtime"
+                                    render={({ handler }) => (
+                                        <div>
+                                            <DatePicker {...handler("DatePicker") }
+                                                dataField="mtime"
+                                                meta={{ label: Date }}
+                                                componentId="DateSensor"
+                                                title="DatePickerC"
+                                                queryFormat="date"
+                                                placeholder="mm-dd-yyyy"
+                                                defaultValue={null}
+                                                focused={true}
+                                                numberOfMonths={1}
+                                                showClear={true}
+                                                clickUnselectsDay={true}
+                                                showFilter={true}
+                                                filterLabel="Date"
+                                                URLParams={false}
+                                            //  value = {this.errorControls && this.errorControls['mtime'].value !=== ''? this.errorControls['mtime'].value : null}
+                                            />
+                                        </div>
+                                    )}
+                                />
+                                <div>
+                                    {(this.loginForm.controls && this.errorControls('mtime')
+                                        && this.errorControls('mtime').errors
+                                        && this.errorControls('mtime').errors.required) ? <p>This Field is required</p> : null}
+                                </div>
+                                <div>
+                                    {(this.loginForm.controls && this.errorControls['mtime']
+                                        && this.errorControls['mtime'].errors
+                                        && this.errorControls['mtime'].errors.notValidFormat) ?
+                                        <p>Please enter mm-dd-yyyy</p> : null}
+                                </div>
+                                <div>
+                                    {this.dateErrorMessage ? <p>Enter Date lesser than End Date</p> : null}
+                                </div>
+                                <FieldControl
+                                    name="endDate"
+                                    render={({ handler }) => (
+                                        <div>
+                                            <DatePicker {...handler("DatePicker") }
+                                                dataField="endDate"
+                                                meta={{ label: Date }}
+                                                componentId="endDateSensor"
+                                                title="endDatePicker"
+                                                queryFormat="date"
+                                                placeholder="mm-dd-yyyy"
+                                                defaultValue={null}
+                                                focused={true}
+                                                numberOfMonths={1}
+                                                showClear={true}
+                                                clickUnselectsDay={true}
+                                                showFilter={true}
+                                                filterLabel="Date"
+                                                URLParams={false}
+                                            // value = {this.loginForm.controls && this.loginForm.controls['endDate'].value !=== ''? this.loginForm.controls['endDate'].value : null}
+                                            />
+                                        </div>
+                                    )}
+                                />
+                                <div>
+                                    {(this.loginForm.controls && this.loginForm.controls['endDate']
+                                        && this.loginForm.controls['endDate'].errors
+                                        && this.loginForm.controls['endDate'].errors.required) ?
+                                        <p>This Field is required</p> : null}
+                                </div>
+                                <button type="button" onClick={this.handleReset}> Reset </button>
+                                <button type="submit">Submit</button>
+                            </form>
+                        )}
+                    />
+                </ReactiveBase>
+            </div>
         );
     }
 }
@@ -293,4 +293,3 @@ const dispatchStateToProps = dispatch => {
 };
 export default connect(mapStateToProps, dispatchStateToProps)(ReactiveForm);
 
- 

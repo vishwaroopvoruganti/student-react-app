@@ -1,10 +1,10 @@
 import React from 'react';
 
 const Button = (props) => {
-    return(
-        <button 
-            onClick= {props.action}>    
-            {props.title} 
+    return (
+        <button
+            onClick={props.action}>
+            {props.title}
         </button>)
 }
 
