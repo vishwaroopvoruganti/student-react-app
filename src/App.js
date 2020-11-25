@@ -21,7 +21,6 @@ const asyncReactiveForms = asyncComponent(() => {
 function initializeReactGA() {
   // console.log('Analytics');
   ReactGA.initialize("UA-155426348-1");
-  
   ReactGA.pageview('/');
   //ReactGA.pageview(window.location.pathname+window.location.search);
 }
